@@ -1,20 +1,15 @@
 <template>
-  <section class="section">
-    <div class="columns is-mobile">
-      <card
-        title="Export Telegram Data"
-        icon="send"
-      >
+  <section style="width: 100%">
+    <full-page>
+      <section class="section" style="background: #f59e0b">
+        <h1>Export Telegram Data</h1>
         Make sure you have the latest version of Telegram Desktop installed on your computer, then click Settings > Export Telegram data.
         <video style="max-width: 640px;" vindex="1" preload="auto" autoplay muted loop>
           <source src="https://telegram.org/resources/video/ExDataBlog.mp4" type="video/mp4">
         </video>
-      </card>
-
-      <card
-        title="Upload Chats"
-        icon="upload"
-      >
+      </section>
+      <section class="section" style="background: #ef4444">
+      <h1>Upload Chats</h1>
         <b-field class="file is-primary" :class="{'has-name': !!file}">
           <b-upload v-model="file" class="file-label">
             <span class="file-cta">
@@ -26,27 +21,18 @@
             </span>
           </b-upload>
         </b-field>
-      </card>
-
-      <card
-        title="Emojis"
-        icon="emoticon-outline"
-      >
+      </section>
+      <section class="section" style="background: #001122">
+        <h1>Emojis</h1>
         {{ emojis }}
-      </card>
-    </div>
+      </section>
+    </full-page>
   </section>
 </template>
 
 <script>
-import Card from '~/components/Card'
-
 export default {
   name: 'HomePage',
-
-  components: {
-    Card
-  },
 
   data() {
     return {
@@ -93,3 +79,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+</style>

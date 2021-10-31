@@ -43,6 +43,7 @@ export default {
     'nuxt-buefy',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@openafg/nuxt-fullpage',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
