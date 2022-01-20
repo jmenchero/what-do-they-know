@@ -1,7 +1,6 @@
 <template>
   <Nuxt />
 </template>
-
 <style>
 html, body {
   width: 100vw;
@@ -9,5 +8,10 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  font-family: "Open Sans",sans-serif;
+  color: rgb(255, 255, 255);
+}
+a {
+  color: #444141;
 }
 </style>
