@@ -10,7 +10,7 @@
             class="intro__button"
             type="is-primary"
             rounded
-            @click="$refs.fullpage.moveDown()"
+            @click="$refs.fullpage.scrollToSection(1)"
           >Show me my insights!</b-button>
         </div>
         <img class="intro__video" src="~/assets/summary.gif"/>
@@ -51,51 +51,29 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'HomePage',
 
   data() {
     return {
-      file: null,
-      json: null
+      file: null
     }
   },
 
   watch: {
-    file (newFile) {
-      const reader = new FileReader()
-      reader.addEventListener('load', (event) => {
-        const result = event.target.result
-        this.json = JSON.parse(result)
-      })
-      reader.readAsText(newFile)
+    file (file) {
+      this.loadFromTelegram(file)
     }
   },
 
   computed: {
-    user () {
-      return `user${this.json.personal_information.user_id}`
-    },
-    emojis () {
-      const emojis = {}
-      if (this.json) {
-        this.json.chats.list.map(
-          chat => {
-            chat.messages.map(message => {
-              if (message.from_id === this.user && message.text.match) {
-                const message_emojis = message.text.match(/\p{Extended_Pictographic}/ug)
-                if (message_emojis) {
-                  message_emojis.map(emoji => {
-                    emojis[emoji] = emojis[emoji] ? emojis[emoji] + 1 : 1
-                  })
-                }
-              }
-            })
-          }
-        )
-      }
-      return emojis
-    }
+    ...mapGetters('analysis', ['emojis'])
+  },
+
+  methods: {
+    ...mapActions('analysis', ['loadFromTelegram'])
   }
 }
 </script>
@@ -136,12 +114,5 @@ export default {
   min-width: 400px;
   width: 50%;
   margin: 2rem;
-}
-h1 {
-  font-weight: 700;
-  font-size: 3vw;
-}
-p {
-  font-size: 1.2vw;
 }
 </style>
