@@ -11,6 +11,13 @@ html, body {
   font-family: "Open Sans",sans-serif;
   color: rgb(255, 255, 255);
 }
+.section {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 h1 {
   font-weight: 700;
   font-size: 3vw;
