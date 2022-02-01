@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 export const state = () => ({
   json: undefined
 })
@@ -42,5 +44,27 @@ export const getters = {
       )
     }
     return emojis
+  },
+  words (state, getters) {
+    const words = {}
+    if (state.json) {
+      state.json.chats.list.map(
+        chat => {
+          chat.messages.map(message => {
+            if (message.from_id === getters.user && message.text.match) {
+              const message_words = message.text.match(/\b(\w+)\b/g)
+              if (message_words) {
+                message_words.map(word => {
+                  if (word.length > 4) {
+                    words[word] = words[word] ? words[word] + 1 : 1
+                  }
+                })
+              }
+            }
+          })
+        }
+      )
+    }
+    return _.pickBy(words, word => word > 100)
   }
 }
