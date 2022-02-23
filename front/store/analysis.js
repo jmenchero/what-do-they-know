@@ -66,5 +66,21 @@ export const getters = {
       )
     }
     return _.pickBy(words, word => word > 100)
+  },
+  activeHours (state, getters) {
+    const activeHours = {}
+    if (state.json) {
+      state.json.chats.list.map(
+        chat => {
+          chat.messages.map(message => {
+            if (message.from_id === getters.user) {
+              const hour = new Date(message.date).getHours()
+              activeHours[hour] = activeHours[hour] ? activeHours[hour] + 1 : 1
+            }
+          })
+        }
+      )
+    }
+    return activeHours
   }
 }
