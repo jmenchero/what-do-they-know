@@ -99,8 +99,8 @@ export default {
       return `
         position: absolute;
         font-size: ${count}px;
-        left: ${Math.floor(Math.random()*100)}vw;
-        top: ${Math.floor(Math.random()*100)}vh;
+        left: ${10+Math.floor(Math.random()*80)}vw;
+        top: ${10+Math.floor(Math.random()*80)}vh;
         transform: translatey(0px);
         animation: float ${Math.random()*10+5}s ease-in-out;
       `
