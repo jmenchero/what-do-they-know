@@ -74,8 +74,10 @@ export default {
   computed: {
     ...mapGetters('analysis', ['emojis', 'words', 'activeHours']),
   },
-  mounted () {
-    this.loadActiveHoursChartData()
+  watch: {
+    activeHours () {
+      this.loadActiveHoursChartData()
+    }
   },
   methods: {
     getRandomInt () {
