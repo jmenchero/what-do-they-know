@@ -22,3 +22,13 @@ resource "aws_s3_bucket" "front" {
     index_document = "index.html"
   }
 }
+
+resource "aws_redshift_cluster" "db" {
+  cluster_identifier  = "wdtk-cluster"
+  database_name       = "wdtk-db"
+  master_username     = "wdtk-front"
+  master_password     = "temporalpassword"
+  node_type           = "dc2.large"
+  cluster_type        = "single-node"
+  skip_final_snapshot = true
+}
