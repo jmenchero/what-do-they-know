@@ -25,9 +25,9 @@ resource "aws_s3_bucket" "front" {
 
 resource "aws_redshift_cluster" "db" {
   cluster_identifier  = "wdtk-cluster"
-  database_name       = "wdtk-db"
-  master_username     = "wdtk-front"
-  master_password     = "temporalpassword"
+  database_name       = "wdtk_db"
+  master_username     = "wdtkfront"
+  master_password     = "1Temporalpassword"
   node_type           = "dc2.large"
   cluster_type        = "single-node"
   skip_final_snapshot = true
