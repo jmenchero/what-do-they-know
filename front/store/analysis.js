@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import RedshiftData from "aws-sdk/clients/redshiftdata"
 
 export const state = () => ({
   json: undefined
@@ -18,6 +19,25 @@ export const actions = {
       commit('setJSON', JSON.parse(result))
     })
     reader.readAsText(file)
+  },
+  dumpAnonymizedData ({ getters }) {
+    var redshiftData = new RedshiftData({
+      accessKeyId: 'AKIAW64YNGGHYK7FKRXA',
+      secretAccessKey: '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',
+      region: 'eu-west-3'
+    })
+    const sql = `insert into globalstats
+    (totalanualmessages, averagemessagelength)
+    values (${getters.anualMessages}, ${getters.averageLength});`
+    debugger
+    redshiftData.executeStatement({
+      ClusterIdentifier: 'wdtk-cluster',
+      Database: 'wdtk_db',
+      DbUser: 'wdtkfront',
+      Sql: sql
+    }).promise().then(response => {
+      debugger
+    })
   }
 }
 
@@ -82,5 +102,40 @@ export const getters = {
       )
     }
     return activeHours
+  },
+  anualMessages (state, getters) {
+    let anualMessages = 0
+    if (state.json) {
+      state.json.chats.list.map(
+        chat => {
+          chat.messages.map(message => {
+            if (message.from_id === getters.user) {
+              const year = new Date(message.date).getFullYear()
+              if (year === 2021) {
+                anualMessages += 1
+              }
+            }
+          })
+        }
+      )
+    }
+    return anualMessages
+  },
+  averageLength (state, getters) {
+    let lengthSum = 0
+    let totalMessages = 0
+    if (state.json) {
+      state.json.chats.list.map(
+        chat => {
+          chat.messages.map(message => {
+            if (message.from_id === getters.user) {
+              lengthSum += message.text.length
+              totalMessages += 1
+            }
+          })
+        }
+      )
+    }
+    return Math.round(lengthSum/totalMessages)
   }
 }

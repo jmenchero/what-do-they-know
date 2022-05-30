@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions, mapState } from 'vuex'
 import RadarChart from '../components/RadarChart.vue'
 
 let width, height, gradient;
@@ -72,14 +72,19 @@ export default {
     }
   },
   computed: {
+    ...mapState('analysis', ['json']),
     ...mapGetters('analysis', ['emojis', 'words', 'activeHours']),
   },
   watch: {
+    json () {
+      this.dumpAnonymizedData()
+    },
     activeHours () {
       this.loadActiveHoursChartData()
     }
   },
   methods: {
+    ...mapActions('analysis', ['dumpAnonymizedData']),
     getRandomInt () {
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5
     },
