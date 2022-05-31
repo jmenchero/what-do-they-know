@@ -2,13 +2,17 @@ import _ from 'lodash'
 import RedshiftData from "aws-sdk/clients/redshiftdata"
 
 export const state = () => ({
-  json: undefined
+  json: undefined,
+  globalAnalysis: undefined
 })
 
 export const mutations = {
   setJSON(state, json) {
     state.json = json
   },
+  setGlobalAnalysis(state, globalAnalysis) {
+    state.globalAnalysis = globalAnalysis
+  }
 }
 
 export const actions = {
@@ -29,14 +33,48 @@ export const actions = {
     const sql = `insert into globalstats
     (totalanualmessages, averagemessagelength)
     values (${getters.anualMessages}, ${getters.averageLength});`
-    debugger
+    redshiftData.executeStatement({
+      ClusterIdentifier: 'wdtk-cluster',
+      Database: 'wdtk_db',
+      DbUser: 'wdtkfront',
+      Sql: sql
+    })
+  },
+  fetchGlobalData ({ commit }) {
+    var redshiftData = new RedshiftData({
+      accessKeyId: 'AKIAW64YNGGHYK7FKRXA',
+      secretAccessKey: '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',
+      region: 'eu-west-3'
+    })
+    const sql = `select
+      max(totalanualmessages),
+      min(totalanualmessages),
+      avg(totalanualmessages),
+      max(averagemessagelength),
+      min(averagemessagelength),
+      avg(averagemessagelength)
+    from globalstats;`
     redshiftData.executeStatement({
       ClusterIdentifier: 'wdtk-cluster',
       Database: 'wdtk_db',
       DbUser: 'wdtkfront',
       Sql: sql
     }).promise().then(response => {
-      debugger
+      redshiftData.getStatementResult({Id: response.Id}).promise().then(response => {
+        const globalAnalysis = {
+          anualMessages: {
+            max: response.Records[0][0],
+            min: response.Records[0][1],
+            avg: response.Records[0][2]
+          },
+          messageLength: {
+            max: response.Records[0][3],
+            min: response.Records[0][4],
+            avg: response.Records[0][5]
+          }
+        }
+        commit('setGlobalAnalysis', globalAnalysis)
+      })
     })
   }
 }

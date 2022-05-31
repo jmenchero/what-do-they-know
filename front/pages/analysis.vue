@@ -12,7 +12,14 @@
     </section>
     <section class="section section--hours">
       <h1>Your hourly use</h1>
-      <radar-chart :chart-data="activeHoursChartData" :options="chartOptions" />
+      <radar-chart :chart-data="activeHoursChartData" :options="activeHoursChartOptions" />
+    </section>
+    <section class="section section--global">
+      <div v-if="globalAnalysis">
+        <h1>You vs World</h1>
+        <p>Anual Messages: {{ anualMessages }} vs {{ globalAnalysis.anualMessages.avg.longValue }}</p>
+        <p>Anual Messages: {{ averageLength }} vs {{ globalAnalysis.messageLength.avg.longValue }}</p>
+      </div>
     </section>
   </full-page>
 </template>
@@ -53,7 +60,7 @@ export default {
   data () {
     return {
       activeHoursChartData: null,
-      chartOptions: {
+      activeHoursChartOptions: {
         scale: {
           gridLines: {
             circular: true,
@@ -72,19 +79,20 @@ export default {
     }
   },
   computed: {
-    ...mapState('analysis', ['json']),
-    ...mapGetters('analysis', ['emojis', 'words', 'activeHours']),
+    ...mapState('analysis', ['json', 'globalAnalysis']),
+    ...mapGetters('analysis', ['emojis', 'words', 'activeHours', 'anualMessages', 'averageLength']),
   },
   watch: {
     json () {
       this.dumpAnonymizedData()
+      this.fetchGlobalData()
     },
     activeHours () {
       this.loadActiveHoursChartData()
     }
   },
   methods: {
-    ...mapActions('analysis', ['dumpAnonymizedData']),
+    ...mapActions('analysis', ['dumpAnonymizedData', 'fetchGlobalData']),
     getRandomInt () {
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5
     },
@@ -118,13 +126,19 @@ export default {
 
 <style>
 .section--emojis {
-  background: linear-gradient(#001122,#000000);
+  background: linear-gradient(#001122,grey);
   display: flex;
   justify-content: center;
 }
 .section--hours {
   background: grey;
   display: flex;
+  justify-content: center;
+}
+.section--global {
+  background: linear-gradient(grey,#001122);
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
