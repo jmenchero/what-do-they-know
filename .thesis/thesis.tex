@@ -1,0 +1,70 @@
+% arara: clean: {files: [thesis.aux, thesis.idx, thesis.ilg, thesis.ind, thesis.bbl, thesis.bcf, thesis.blg, thesis.run.xml, thesis.fdb_latexmk, thesis.fls, thesis.loe, thesis.lof, thesis.lol, thesis.lot, thesis.ltb, thesis.out, thesis.toc, thesis.upa, thesis.upb, thesis.acn, thesis.acr, thesis.alg, thesis.glg, thesis.glo, thesis.gls, thesis.glsdefs, thesis.idx,  thesis.ilg, thesis.xdy, thesis.loa, thesis.gnuploterrors , thesis.mw, thesis.fdb_latexmk ]}
+% arara: pdflatex: {shell: yes}
+% arara: makeglossaries
+% arara: makeindex: {style: thesis.ist }
+% arara: bibtex
+% arara: pdflatex: {shell: yes}
+% arara: pdflatex: {shell: yes}
+% arara: clean: {files: [thesis.aux, thesis.idx, thesis.ilg, thesis.ind, thesis.bbl, thesis.bcf, thesis.blg, thesis.run.xml, thesis.fdb_latexmk, thesis.fls, thesis.loe, thesis.lof, thesis.lol, thesis.lot, thesis.ltb, thesis.out, thesis.toc, thesis.upa, thesis.upb, thesis.acn, thesis.acr, thesis.alg, thesis.glg, thesis.glo, thesis.gls, thesis.glsdefs, thesis.idx,  thesis.ilg, thesis.xdy, thesis.loa, thesis.gnuploterrors , thesis.mw, thesis.fdb_latexmk ]}
+
+
+\documentclass[epsbased,copyright,final,printable,covers,extendedindex,firstnumbered,tfg,gnuplot]{thesis}
+
+\advisor{Esther Guerra Sánchez}
+\levelin{Ingeniería Informatica}
+\title{Plataforma web para el análisis de mensajería instantánea}
+\author{Juan Bautista Menchero Amigo}
+\privateaddress{C\textbackslash\ Francisco Tomás y Valiente Nº 11}
+\copyrightdate{24 de Mayo de 2022}
+
+\dedication{A mi madre.\\Este titulo es tan tuyo como mio.}
+\famouscite{Lo peor es cuando has terminado un capítulo\\y la máquina de escribir no aplaude. \\[0.1em] \begin{flushright}Orson Welles\end{flushright}}
+\prefacefile{capitulos/inicio/prefacio}
+\ackfile{capitulos/inicio/agradecimientos}
+\resumenfile{capitulos/inicio/resumen}
+\abstractfile{capitulos/inicio/abstract}
+
+\keywords{Algunas}
+\palabrasclave{Otras}
+
+\coverdata
+{
+  Escuela Politécnica Superior \\
+  Universidad Autónoma de Madrid \\
+  C\textbackslash Francisco Tomás y Valiente nº 11
+}
+
+\bibliographyconfig{thesis}
+
+\begin{document}
+
+\chapter{Introduccion\label{CAP:INTRODUCCION}}{capitulos/introduccion/introduccion}
+  \section{Motivacion\label{SEC:MOTIVACION}}{capitulos/introduccion/motivacion}
+  \section{Objetivos\label{SEC:OBJETIVOS}}{capitulos/introduccion/objetivos}
+  \section{Organizacion de la memoria\label{SEC:ORGANIZACION}}{capitulos/introduccion/organizacion}
+
+\chapter{Estado del arte\label{CAP:CONTEXTO}}{capitulos/contexto/contexto}
+  \section{Derecho de acceso\label{SEC:ACCESO}}{capitulos/contexto/acceso}
+  \section{Informacion destilada de libre acceso\label{SEC:SIMILARES}}{capitulos/contexto/similares}
+  \section{Computacion en la nube\label{SEC:CLOUD}}{capitulos/contexto/cloud}
+  \section{Frameworks frontend\label{SEC:FRONTEND}}{capitulos/contexto/frontend}
+  \section{Bases de datos\label{SEC:DB}}{capitulos/contexto/db}
+
+\chapter{Analisis de requisitos\label{CAP:ANALISIS}}{capitulos/analisis/analisis}
+  \section{Reportes individuales\label{SEC:CLIENTE}}{capitulos/analisis/cliente}
+  \section{Reportes comparativos\label{SEC:SERVIDOR}}{capitulos/analisis/servidor}
+
+\chapter{Disenyo\label{CAP:DESIGN}}{capitulos/design/design}
+  \section{Experiencia de usuario\label{SEC:UX}}{capitulos/design/ux}
+  \section{Infraestructura\label{SEC:INFRA}}{capitulos/design/infra}
+  \section{Tecnologias\label{SEC:TECH}}{capitulos/design/tech}
+  \section{Planificacion\label{SEC:PLANIFICACION}}{capitulos/design/planificacion}
+  \section{Implementacion\label{SEC:SOFTWARE}}{capitulos/design/software}
+
+\chapter{Pruebas\label{CAP:PRUEBAS}}{capitulos/pruebas/pruebas}
+
+\chapter{Conclusiones y trabajo futuro\label{CAP:FUTURO}}{capitulos/futuro/futuro}
+  \section{Conclusiones\label{SEC:CONCLUSIONES}}{capitulos/futuro/conclusiones}
+  \section{Trabajo futuro\label{SEC:TODOS}}{capitulos/futuro/todos}
+
+\end{document}

@@ -1,0 +1,20 @@
+
+% (Extra: en 5 ambitos) https://www.keboola.com/blog/relational-vs-non-relational-database-when-to-use-one-instead-of-the-other#:~:text=Relational%20databases%20are%20best%20for,best%20for%20different%20data%20structures.
+
+\begin{itemize}
+    \item Redshift, columnar por ser analitica, poder usar data api y no tener que montar otra capa. posibilidad de escalado.
+    \item DC2 porque es gratis [https://aws.amazon.com/es/redshift/pricing/](https://aws.amazon.com/es/redshift/pricing/)
+    \item Acceder a redshift primero desde cli y luego desde js sdk [https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+\end{itemize}
+
+Working with the Amazon Redshift Data API
+
+Before you use the Amazon Redshift Data API, review the following steps:
+
+\begin{enumerate}
+    \item Determine if you, as the caller of the Data API, are authorized. 
+    \item Determine if you plan to call the Data API with authentication credentials from Secrets Manager or temporary credentials. 
+    \item Set up a secret if you use Secrets Manager for authentication credentials. 
+    \item Review the considerations and limitations when calling the Data API. 
+    \item Call the Data API from the AWS Command Line Interface (AWS CLI), from your own code, or using the query editor in the Amazon Redshift console.
+\end{enumerate}

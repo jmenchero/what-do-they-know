@@ -1,0 +1,12 @@
+Architecture:
+
+- AWS account and console
+- IAM: Create access for GithubActions and Terraform
+- S3: Manually create state bucket
+- GitHub: Add AWS secrets to GitHub
+
+UNDERSTANDING TERRAFORM REMOTE STATE
+
+You might be wondering what’s going on with our remote state? What even is remote state and why do we need it? So let’s answer that question now: state is what Terraform uses to compare the current state (note the wording here) of your infrastructure against the desired state. You can either create this state locally (i.e Terraform writes to a file) or you can do it remotely.
+
+We need to create our state remotely if we are to run it on Github Actions. Without remote state, Terraform generates a local file, but it wouldn’t commit it to GitHub, so we’d lose the state data and end up in a sticky situation. With remote state we avoid this problem by keeping state out of our pipeline in separate persistent storage.
