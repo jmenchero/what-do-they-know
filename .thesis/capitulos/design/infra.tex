@@ -1,12 +1,43 @@
-Architecture:
 
-- AWS account and console
-- IAM: Create access for GithubActions and Terraform
-- S3: Manually create state bucket
-- GitHub: Add AWS secrets to GitHub
+[Diagrama arquitectura global]
 
-UNDERSTANDING TERRAFORM REMOTE STATE
+Para dar soporte a la plataforma web y su necesidad de almacenamiento de datos, asi como todos los requisitos no funcionales anteriormente detallados, se han tomado la siguiente serie de decisiones a la hora de plantear la infraestructura.
 
-You might be wondering what’s going on with our remote state? What even is remote state and why do we need it? So let’s answer that question now: state is what Terraform uses to compare the current state (note the wording here) of your infrastructure against the desired state. You can either create this state locally (i.e Terraform writes to a file) or you can do it remotely.
+Almacenamiento del codigo: GitHub
 
-We need to create our state remotely if we are to run it on Github Actions. Without remote state, Terraform generates a local file, but it wouldn’t commit it to GitHub, so we’d lose the state data and end up in a sticky situation. With remote state we avoid this problem by keeping state out of our pipeline in separate persistent storage.
+De todas las opciones alternativas de almacenamiento de codigo [TODO: Listar alternativas], se ha optado por GitHub al ser gratuito, el estandar en la comunidad open source, y ofrecer servicios de CI/CD como GitHub Actions o herramientas para la gestion de claves como GitHub Secrets.
+
+Proveedor de cloud: AWS
+
+Los principales proveedores de computacion en la nube, como Google o Microsoft, ofrecen servicios similares, no obstante he optado por Amazon por tener una mayor cuota del mercado y seguir en crecimiento, asi como por un interes personal en perseguir la certificacion de Solutions Architect de AWS, siendo la certificacion de nube mas valorada a la hora de la redaccion de este documento [TODO: Citar fuente].
+
+Infraestructura como codigo: Terraform
+
+El almacenar la definicion de la infraestructura como codigo permite tanto  \cite{InfraAsCode}. Se opta por Terraform por su facil integracion con GitHub Actions y AWS.
+
+[TODO: Como funciona terraform]
+Terraform funciona comparando el nuevo estado de infraestructura definido contra el anterior, y ejecutando una serie de pasos mediante las APIs a las que tiene acceso para cambiar en el entorno todo aquello que sea necesario para dejarlo como en la nueva definicion del estado.
+
+En este caso en particular, al utilizar GitHub Actions para ejecutar esos cambios, se requiere de lo que se denomina un "estado remoto". Sin un estado remoto, Terraform genera un fichero local que no seria capaz de salvar en GitHub, por ello requiere configurar a mano un almacenamiento para el estado de manera remota. Se considera una practica estandar en la integracion entre Terraform y AWS utilizar un bucket de S3 para ello.
+
+Hosting: S3
+
+Para el hosting del cliente web se utiliza S3 por dar soporte a disponer el mismo contenido replicado en diferentes areas geograficas tanto por seguridad como acceso y permitir la redireccion de dominios a contenido web estatico almacenado.
+
+[TODO: Que es S3]
+
+Base de datos: Redshift
+
+Al funcionar encima de S3 garantiza la misma disponibilidad, escalabilidad y fiabilidad que S3, y al ser una base de datos columnar permite realizar analisis sobre conjuntos de atributos (el caso principal de uso de la aplicacion) con un menor tiempo de respuesta.
+
+Tambien ofrece una API para ejecutar sentencias de SQL a traves del SDK de AWS, evitando asi la necesidad de una capa intermedia para el backend durante las primeras iteraciones del proyecto.
+
+De todos los servidores de Redshift disponibles, selecciono DC2 por estar incluido gratuitamente en el tier basico de AWS \cite{RedshiftPricing}.
+
+[TODO: Definir SDK, AWS, S3, ...]
+
+Control de acceso: IAM
+
+El servicio de gestion de usuarios y acceso principal de Amazon Web Services. Se ha utilizado para generar los accesos a los servicios de AWS para GitHub Actions y Terraform.
+
+[Diagrama arquitectura AWS]
