@@ -3,6 +3,7 @@
 !*.tex
 !*.pdf
 !*.png
+!*.jpg
 !*.cls
 !*.bib
 !*/
