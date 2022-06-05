@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesClass{tfgtfmthesisuam}[2018/06/01 v3.0 tfgtfmthesisuam class (EA)]
-\typeout{Class: tfgtfmthesisuam v3.0 <2018/06/01> (Eloy Anguiano)}
+\ProvidesClass{thesis}[2018/06/01 v3.0 thesis class (EA)]
+\typeout{Class: thesis v3.0 <2018/06/01> (Eloy Anguiano)}
 
 %TODO: más gráficas, viudas y huérfanas
 
