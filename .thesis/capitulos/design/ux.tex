@@ -1,36 +1,46 @@
 
-La plataforma pretende tener el menor numero de pantallas y elementos posibles para facilitar su uso, intentando reducir el numero de clicks necesarios para consultar los reportes.
+La plataforma pretende tener el menor número de pantallas y elementos posibles para facilitar su uso, intentando reducir el número de clicks necesarios para consultar los reportes, como decisión de diseño principal a la hora de satisfacer los requisitos RNF-04 [Intuitividad de uso] y RF-01 [Presentación del proyecto].
 
-Segun uno de los principios de disenyo mas citados, "3-Click rule"\cite{3ClickRule} ninguna pieza de informacion debe estar a mas de 3 clicks de distancia para evitar perder al usuario en el flujo de la aplicacion. Aunque dicho principio ha sido desmitificado por algunos estudios\cite{3ClickRuleMyth}, en nuestro caso en particular hay ya una gran barrera de usabilidad al no disponer de ninguna forma inmediata de acceder a los datos y requerir una serie de pasos intermedios por el usuario fuera de la plataforma para obtener el historico de datos. Por ello se ha limitado a las cuatro siguientes secciones.
+Según uno de los principios de experiencia de usuario más citados, "3-Click rule"\cite{3ClickRule} ninguna pieza de información en un sitio web debe estar a más de 3 clicks de distancia para evitar perder al usuario en el flujo de la aplicación. Aunque dicho principio ha sido desmitificado por algunos estudios\cite{3ClickRuleMyth}, en este proyecto existe ya una gran barrera de usabilidad al no disponer de ninguna forma inmediata de acceder a los datos (ni What's App ni Telegram proveen ninguna API de acceso para integrar sistemas externos a sus datos) y requerir una serie de pasos intermedios por el usuario fuera de la plataforma para obtener el histórico de datos. Por ello la interfaz se ha limitado a las cuatro siguientes secciones.
 
+\subsection{Presentación}
 
-1. Presentacion
+En esta pantalla el objetivo principal es comunicar de la manera más concisa posible el valor que aporta la aplicación. La elección de palabras observable en la figura \ref{FIG:INTRO} intenta motivar el interés apelando a la intimidad comprometida de los usuarios. También se aplican técnicas de neuromarketing\cite{CallToAction} a la hora de seleccionar el texto del botón principal, incitando a la acción específica por parte del usuario. Acompañada de un corto video de ejemplo donde pueden previsualizar un ejemplo del reporte generado por la aplicación, para mantener el texto lo más reducido posible y no perder el interés del usuario, ya que es comúnmente referenciado que un usuario decide si permanecer o no en una página que visita por primera vez en los primeros 10-20 segundos desde que entra\cite{UserStay}.
 
-[Screenshot presentacion]
+\begin{figure}[]{FIG:INTRO}{Pantalla de presentación del proyecto}
+    \image{14cm}{}{intro}
+\end{figure}
 
-En esta seccion el objetivo principal era comunicar de la manera mas concisa posible el valor que aporta la aplicacion. La eleccion de palabras intenta motivar el interes apelando a la intimidad comprometida de los usuarios. Acompanyada de un corto video de ejemplo donde pueden previsualizar un ejemplo del reporte generado por la aplicacion, para mantener el texto lo mas reducido posible.
+\subsection{Instrucciones de exportación}
 
-2. Pantalla de subida
+En la figura \ref{FIG:ANALYZE} se presentan las instrucciones para generar la copia de seguridad de manera tanto escrita como visual para acompañar lo máximo posible al usuario durante el proceso que debe realizar inevitablemente fuera de la plataforma. Se pretende así cumplir con los requisitos RF-02 [Guía de exportación] y RF-03 [Procesar datos de Telegram].
 
-[Screenshot pantalla de subida]
+Antes de que el usuario comience con la copia de seguridad se avisa de que ninguno de sus datos saldrá de su ordenador para que la privacidad no sea un impedimento de uso y cumplir con el RNF-09 [Privacidad de los datos], la elección de palabras y acciones también pretende dejar constancia implícita de lo mismo, así como una nota sobre que pueden acceder al código fuente disponible en GitHub. Esto último ha sido motivado tanto por intentar comenzar una comunidad de desarrollo entorno a la plataforma como se indicaba en el RNF-10 [Comunidad de desarrollo], como en un ejercicio de transparencia para transmitir más confianza respecto a la forma de procesar sus datos privados.
 
-En la pantalla de subida se presentan las instrucciones para generar la copia de seguridad de manera tanto escrita como visual para acompanyar lo maximo posible al usuario durante el proceso que debe realizar inevitablemente fuera de la plataforma.
+\begin{figure}[]{FIG:ANALYZE}{Instrucciones para exportar el histórico}
+    \image{14cm}{}{analyze}
+\end{figure}
 
-Tambien se avisa antes de que el usuario comience con la copia de seguridad de que ninguno de sus datos saldra de su ordenador para que la privacidad no sea un impedimento de uso, y que pueden acceder al codigo fuente disponible en GitHub. Esto ha sido motivado tanto por intentar comenzar una comunidad de desarrollo entorno a la plataforma, como en un ejercicio de transparencia para transmitir mas confianza respecto a la forma de procesar sus datos privados.
+\subsection{Reportes individuales}
 
-3. Reportes individuales
+Esta sección consta de múltiples pantallas, una por reporte generado, imitando la experiencia de usuario de Spotify Wrapped para favorecer la posibilidad de compartir la información obtenida por redes sociales, acorde con el RNF-07 [Interés social]. Algunos ejemplos de los reportes generados se pueden observar tanto en la figura \ref{FIG:EMOJIS} (RF-05 [Emojis más usados]) como en la figura \ref{FIG:HOURS} (RF-06 [Uso diario]).
 
-* Emojis wall
+\begin{figure}[]{FIG:EMOJIS}{Pantalla con los emojis más usados por el usuario}
+    \image{14cm}{}{emojis}
+\end{figure}
 
-[Screenshot emojis wall]
+Con estos reportes sobre el uso personal de la aplicación, que escapan al conocimiento que puede tener de manera intuitiva el usuario, se pretende cumplir con el RNF-06 [Interés personal], aportando información sobre el propio individuo que puede ser desconocida para él o ella. También la elección estética de los reportes, huyendo de mostrar la información de manera meramente textual sino utilizando infográficos llamativos y concisos, pretende satisfacer el requisito RNF-07 [Interés social]. Y detalles como la curva de uso horario permiten visualizar de manera implícita los horarios de sueño y actividad social del usuario, esperando aportar información suficientemente íntima como para promover una concienciación con sus datos privados (RNF-08 [Mensaje de concienciación]).
 
-* Hourly report
+\begin{figure}[]{FIG:HOURS}{Diagrama radial con el uso acumulativo por horas}
+    \image{14cm}{}{hours}
+\end{figure}
 
-[Screenshot hourly report]
+\subsection{Reporte comparativo}
 
+Para acceder al reporte comparativo primero se solicita el permiso del usuario para almacenar sus datos como aparece en la figura \ref{FIG:UPLOAD}. Aunque no es necesario almacenar los datos del usuario para poder compararlos, se opta por esta estrategia para fomentar que compartan su reporte y mejorar la calidad del análisis global. De esta forma se permite así al usuario poder utilizar la herramienta de análisis individual sin compartir ningún dato, y decidir si desea compartir parte de su información con fines meramente estadísticos para desbloquear la comparativa con otros usuarios, acorde con el requisito RF-13 [Compartir estadísticas].
 
-4. Reporte comparativo
+\begin{figure}[]{FIG:UPLOAD}{Aceptación de datos a compartir}
+    \image{14cm}{}{upload}
+\end{figure}
 
-[Screenshot comparativa]
-
-Durante todo el disenyo visual se han utilizado principios de disenyo de White Space Is Not Your Enemy \cite{WhiteSpace}.
+\newpage
