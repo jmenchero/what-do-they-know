@@ -19,7 +19,7 @@
         <source src="https://telegram.org/resources/video/ExDataBlog.mp4" type="video/mp4">
       </video>
       <div class="upload__text">
-        <h1>Upload Chats</h1>
+        <h1>Analyze Chats</h1>
         <p>We can recreate for you some of the infographics they generate from your data so you can understand better the kind of trace you leave online.</p>
         <p>All your data remains yours, everything is processed completely anonymously in your browser without sending anything over the network.</p>
         <p class="strong"> 1) Open the latest version of Telegram Desktop on your computer</p>
@@ -31,8 +31,8 @@
         <b-field class="file is-primary" :class="{'has-name': !!file}">
           <b-upload v-model="file" class="file-label intro__button" rounded>
             <span class="file-cta">
-              <b-icon class="file-icon" icon="upload"></b-icon>
-              <span class="file-label">Analyze chats</span>
+              <b-icon class="file-icon" icon="poll"></b-icon>
+              <span class="file-label">Explore data</span>
             </span>
             <span class="file-name" v-if="file">
               {{ file.name }}
