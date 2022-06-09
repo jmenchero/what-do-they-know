@@ -28,7 +28,7 @@
             icon-left="upload"
             rounded
             @click="processGlobalAnalysis"
-          >Agree and show me my report!</b-button>
+          >Agree and unlock the report!</b-button>
         </div>
         <div v-else class="global-report__content">
           <p>Anual Messages: {{ anualMessages }} vs {{ globalAnalysis.anualMessages.avg.longValue }}</p>
