@@ -15,10 +15,25 @@
       <radar-chart :chart-data="activeHoursChartData" :options="activeHoursChartOptions" />
     </section>
     <section class="section section--global">
-      <div v-if="globalAnalysis">
+      <div class="global-report">
         <h1>You vs World</h1>
-        <p>Anual Messages: {{ anualMessages }} vs {{ globalAnalysis.anualMessages.avg.longValue }}</p>
-        <p>Anual Messages: {{ averageLength }} vs {{ globalAnalysis.messageLength.avg.longValue }}</p>
+        <div v-if="!globalAnalysis" class="global-report__content">
+          <p>If you want to check how your data compares to others you should allow us to process some of your data on our servers, but don't worry, none of your messages are shared, and everything will be anonymous.</p>
+          <p>This is the only data you would be sharing with us:</p>
+          <p class="strong">Anual Messages: {{ anualMessages }} messages</p>
+          <p class="strong">Average Message Length: {{ averageLength }} characters</p>
+          <b-button
+            class="intro__button"
+            type="is-primary"
+            icon-left="upload"
+            rounded
+            @click="processGlobalAnalysis"
+          >Agree and show me my report!</b-button>
+        </div>
+        <div v-else class="global-report__content">
+          <p>Anual Messages: {{ anualMessages }} vs {{ globalAnalysis.anualMessages.avg.longValue }}</p>
+          <p>Average Message Length: {{ averageLength }} vs {{ globalAnalysis.messageLength.avg.longValue }}</p>
+        </div>
       </div>
     </section>
   </full-page>
@@ -83,10 +98,6 @@ export default {
     ...mapGetters('analysis', ['emojis', 'words', 'activeHours', 'anualMessages', 'averageLength']),
   },
   watch: {
-    json () {
-      this.dumpAnonymizedData()
-      this.fetchGlobalData()
-    },
     activeHours () {
       this.loadActiveHoursChartData()
     }
@@ -95,6 +106,10 @@ export default {
     ...mapActions('analysis', ['dumpAnonymizedData', 'fetchGlobalData']),
     getRandomInt () {
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5
+    },
+    processGlobalAnalysis () {
+      this.dumpAnonymizedData()
+      this.fetchGlobalData()
     },
     loadActiveHoursChartData () {
       this.activeHoursChartData = {
@@ -137,9 +152,28 @@ export default {
 }
 .section--global {
   background: linear-gradient(grey,#001122);
+}
+
+.global-report {
+  margin: 10vw;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+
+.global-report p{
+  font-size: 1vw;
+  opacity: .8;
+}
+
+.global-report p.strong{
+  font-size: 1.2vw;
+  opacity: 1;
+  margin-left: 2rem;
+}
+
+.global-report__content {
+  margin: 2rem;
 }
 
 @keyframes float {
