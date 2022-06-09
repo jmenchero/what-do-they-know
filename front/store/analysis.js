@@ -1,14 +1,46 @@
 import _ from 'lodash'
 import RedshiftData from "aws-sdk/clients/redshiftdata"
 
+function mapAllMessagesFromAllChats (chats, messageMapFunction) {
+  chats.map(chat => chat.messages.map(messageMapFunction))
+}
+
+function mapUserMessagesFromAllChats (chats, user, messageMapFunction) {
+  mapAllMessagesFromAllChats(chats, message => {
+    if (message.from_id === user) {
+      messageMapFunction(message)
+    }
+  })
+}
+
+function getMessageEmojis (message) {
+  if (message.text.match) {
+    return message.text.match(/\p{Extended_Pictographic}/ug)
+  } else {
+    return []
+  }
+}
+
+function getMessageWords (message) {
+  if (message.text.match) {
+    return message.text.match(/\b(\w+)\b/g)
+  } else {
+    return []
+  }
+}
+
 export const state = () => ({
-  json: undefined,
+  user: '',
+  chats: [],
   globalAnalysis: undefined
 })
 
 export const mutations = {
-  setJSON(state, json) {
-    state.json = json
+  setUser(state, user) {
+    state.user = user
+  },
+  setChats(state, chats) {
+    state.chats = chats
   },
   setGlobalAnalysis(state, globalAnalysis) {
     state.globalAnalysis = globalAnalysis
@@ -19,8 +51,12 @@ export const actions = {
   loadFromTelegram ({ commit }, file) {
     const reader = new FileReader()
     reader.addEventListener('load', (event) => {
-      const result = event.target.result
-      commit('setJSON', JSON.parse(result))
+      const jsonFile = event.target.result
+      const telegramData = JSON.parse(jsonFile)
+      const user = `user${telegramData.personal_information.user_id}`
+      const chats = telegramData.chats
+      commit('setUser', user)
+      commit('setChats', chats)
     })
     reader.readAsText(file)
   },
@@ -80,100 +116,59 @@ export const actions = {
 }
 
 export const getters = {
-  user (state) {
-    return `user${state.json.personal_information.user_id}`
-  },
-  emojis (state, getters) {
+  emojis (state) {
     const emojis = {}
-    if (state.json) {
-      state.json.chats.list.map(
-        chat => {
-          chat.messages.map(message => {
-            if (message.from_id === getters.user && message.text.match) {
-              const message_emojis = message.text.match(/\p{Extended_Pictographic}/ug)
-              if (message_emojis) {
-                message_emojis.map(emoji => {
-                  emojis[emoji] = emojis[emoji] ? emojis[emoji] + 1 : 1
-                })
-              }
-            }
-          })
-        }
-      )
-    }
+    mapUserMessagesFromAllChats(state.chats, state.user, message => {
+      const message_emojis = getMessageEmojis(message)
+      if (message_emojis) {
+        // Increment emoji's counter
+        message_emojis.map(emoji => {
+          emojis[emoji] = emojis[emoji] ? emojis[emoji] + 1 : 1
+        })
+      }
+    })
     return emojis
   },
-  words (state, getters) {
+  words (state) {
     const words = {}
-    if (state.json) {
-      state.json.chats.list.map(
-        chat => {
-          chat.messages.map(message => {
-            if (message.from_id === getters.user && message.text.match) {
-              const message_words = message.text.match(/\b(\w+)\b/g)
-              if (message_words) {
-                message_words.map(word => {
-                  if (word.length > 4) {
-                    words[word] = words[word] ? words[word] + 1 : 1
-                  }
-                })
-              }
-            }
-          })
-        }
-      )
-    }
-    return _.pickBy(words, word => word > 100)
+    mapUserMessagesFromAllChats(state.chats, state.user, message => {
+      const messageWords = getMessageWords(message)
+      if (messageWords) {
+        messageWords.map(word => {
+          if (word.length > 4) {
+            words[word] = words[word] ? words[word] + 1 : 1
+          }
+        })
+      }
+    })
+    const highlyRepeatedWords = _.pickBy(words, word => word > 100)
+    return highlyRepeatedWords
   },
-  activeHours (state, getters) {
+  activeHours (state) {
     const activeHours = {}
-    if (state.json) {
-      state.json.chats.list.map(
-        chat => {
-          chat.messages.map(message => {
-            if (message.from_id === getters.user) {
-              const hour = new Date(message.date).getHours()
-              activeHours[hour] = activeHours[hour] ? activeHours[hour] + 1 : 1
-            }
-          })
-        }
-      )
-    }
+    mapUserMessagesFromAllChats(state.chats, state.user, message => {
+      const hour = new Date(message.date).getHours()
+      activeHours[hour] = activeHours[hour] ? activeHours[hour] + 1 : 1
+    })
     return activeHours
   },
-  anualMessages (state, getters) {
+  anualMessages (state) {
     let anualMessages = 0
-    if (state.json) {
-      state.json.chats.list.map(
-        chat => {
-          chat.messages.map(message => {
-            if (message.from_id === getters.user) {
-              const year = new Date(message.date).getFullYear()
-              if (year === 2021) {
-                anualMessages += 1
-              }
-            }
-          })
-        }
-      )
-    }
+    mapUserMessagesFromAllChats(state.chats, state.user, message => {
+      const year = new Date(message.date).getFullYear()
+      if (year === 2021) {
+        anualMessages += 1
+      }
+    })
     return anualMessages
   },
-  averageLength (state, getters) {
+  averageLength (state) {
     let lengthSum = 0
     let totalMessages = 0
-    if (state.json) {
-      state.json.chats.list.map(
-        chat => {
-          chat.messages.map(message => {
-            if (message.from_id === getters.user) {
-              lengthSum += message.text.length
-              totalMessages += 1
-            }
-          })
-        }
-      )
-    }
+    mapUserMessagesFromAllChats(state.chats, state.user, message => {
+      lengthSum += message.text.length
+      totalMessages += 1
+    })
     return Math.round(lengthSum/totalMessages)
   }
 }
