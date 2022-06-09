@@ -22,11 +22,11 @@
         <h1>Upload Chats</h1>
         <p>We can recreate for you some of the infographics they generate from your data so you can understand better the kind of trace you leave online.</p>
         <p>All your data remains yours, everything is processed completely anonymously in your browser without sending anything over the network.</p>
-        <p> 1) Make sure you have the latest version of Telegram Desktop installed on your computer</p>
-        <p> 2) Click Settings -> Advanced -> Export Telegram data</p>
-        <p> 3) Disable all checks but "Personal chats"</p>
-        <p> 4) Select "Machine-readable JSON" format</p>
-        <p> 5) Click export</p>
+        <p class="strong"> 1) Open the latest version of Telegram Desktop on your computer</p>
+        <p class="strong"> 2) Click Settings -> Advanced -> Export Telegram data</p>
+        <p class="strong"> 3) Disable all checks but "Personal chats"</p>
+        <p class="strong"> 4) Select "Machine-readable JSON" format</p>
+        <p class="strong"> 5) Click export</p>
         <p>Note: This is an opensource project targeting to promote learning about data analysis, feel free to check the code (or even contribute with improvements) in our <a href="https://github.com/jmenchero/what-do-they-know">github page</a>.</p>
         <b-field class="file is-primary" :class="{'has-name': !!file}">
           <b-upload v-model="file" class="file-label intro__button" rounded>
@@ -98,5 +98,15 @@ export default {
   min-width: 400px;
   width: 50%;
   margin: 2rem;
+}
+.upload__text p{
+  font-size: 1vw;
+  opacity: .8;
+}
+
+.upload__text p.strong{
+  font-size: 1.2vw;
+  opacity: 1;
+  margin-left: 2rem;
 }
 </style>
