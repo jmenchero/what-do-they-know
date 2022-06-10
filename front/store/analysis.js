@@ -54,7 +54,7 @@ export const actions = {
       const jsonFile = event.target.result
       const telegramData = JSON.parse(jsonFile)
       const user = `user${telegramData.personal_information.user_id}`
-      const chats = telegramData.chats
+      const chats = telegramData.chats.list
       commit('setUser', user)
       commit('setChats', chats)
     })

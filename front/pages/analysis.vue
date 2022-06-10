@@ -12,7 +12,11 @@
     </section>
     <section class="section section--hours">
       <h1>Your hourly use</h1>
-      <radar-chart :chart-data="activeHoursChartData" :options="activeHoursChartOptions" />
+      <radar-chart
+        v-if="activeHoursChartData" 
+        :chart-data="activeHoursChartData"
+        :options="activeHoursChartOptions"
+      />
     </section>
     <section class="section section--global">
       <div class="global-report">
@@ -94,13 +98,16 @@ export default {
     }
   },
   computed: {
-    ...mapState('analysis', ['json', 'globalAnalysis']),
-    ...mapGetters('analysis', ['emojis', 'words', 'activeHours', 'anualMessages', 'averageLength']),
+    ...mapState('analysis', ['globalAnalysis']),
+    ...mapGetters('analysis', ['emojis', 'words', 'activeHours', 'anualMessages', 'averageLength'])
   },
   watch: {
     activeHours () {
       this.loadActiveHoursChartData()
     }
+  },
+  created () {
+    this.loadActiveHoursChartData()
   },
   methods: {
     ...mapActions('analysis', ['dumpAnonymizedData', 'fetchGlobalData']),
@@ -112,17 +119,20 @@ export default {
       this.fetchGlobalData()
     },
     loadActiveHoursChartData () {
-      this.activeHoursChartData = {
-        labels: Object.keys(this.activeHours),
-        datasets: [
-          {
-            label: 'Messages per hour',
-            tension: 0.4,
-            data: Object.values(this.activeHours),
-            fill: true,
-            borderColor: gradientColor,
-          }
-        ]
+      const isActiveHoursEmpty = Object.keys(this.activeHours).length === 0
+      if(!isActiveHoursEmpty) {
+        this.activeHoursChartData = {
+          labels: Object.keys(this.activeHours),
+          datasets: [
+            {
+              label: 'Messages per hour',
+              tension: 0.4,
+              data: Object.values(this.activeHours),
+              fill: true,
+              borderColor: gradientColor,
+            }
+          ]
+        }
       }
     },
     emojiStyle(count) {
