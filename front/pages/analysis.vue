@@ -2,7 +2,7 @@
   <full-page ref="fullpage">
     <section class="section section--emojis">
       <div 
-        v-for="(count, emoji) in emojis"
+        v-for="(count, emoji) in emojisWall"
         :key="emoji"
         :style="emojiStyle(count)"
       >
@@ -98,8 +98,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('analysis', ['globalAnalysis']),
-    ...mapGetters('analysis', ['emojis', 'words', 'activeHours', 'anualMessages', 'averageLength'])
+    ...mapState('analysis', ['emojisWall', 'wordsCloud', 'activeHours', 'anualMessages', 'averageLength', 'globalAnalysis']),
   },
   watch: {
     activeHours () {

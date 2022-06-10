@@ -29,18 +29,90 @@ function getMessageWords (message) {
   }
 }
 
+function emojisWall (chats, user) {
+  const emojis = {}
+  mapUserMessagesFromAllChats(chats, user, message => {
+    const message_emojis = getMessageEmojis(message)
+    if (message_emojis) {
+      // Increment emoji's counter
+      message_emojis.map(emoji => {
+        emojis[emoji] = emojis[emoji] ? emojis[emoji] + 1 : 1
+      })
+    }
+  })
+  return emojis
+}
+
+function wordsCloud (chats, user) {
+  const words = {}
+  mapUserMessagesFromAllChats(chats, user, message => {
+    const messageWords = getMessageWords(message)
+    if (messageWords) {
+      messageWords.map(word => {
+        if (word.length > 4) {
+          words[word] = words[word] ? words[word] + 1 : 1
+        }
+      })
+    }
+  })
+  const highlyRepeatedWords = _.pickBy(words, word => word > 100)
+  return highlyRepeatedWords
+}
+
+function activeHours (chats, user) {
+  const activeHours = {}
+  mapUserMessagesFromAllChats(chats, user, message => {
+    const hour = new Date(message.date).getHours()
+    activeHours[hour] = activeHours[hour] ? activeHours[hour] + 1 : 1
+  })
+  return activeHours
+}
+
+function anualMessages (chats, user) {
+  let anualMessages = 0
+  mapUserMessagesFromAllChats(chats, user, message => {
+    const year = new Date(message.date).getFullYear()
+    if (year === 2021) {
+      anualMessages += 1
+    }
+  })
+  return anualMessages
+}
+
+function averageLength (chats, user) {
+  let lengthSum = 0
+  let totalMessages = 0
+  mapUserMessagesFromAllChats(chats, user, message => {
+    lengthSum += message.text.length
+    totalMessages += 1
+  })
+  return Math.round(lengthSum/totalMessages)
+}
+
 export const state = () => ({
-  user: '',
-  chats: [],
+  emojisWall: undefined,
+  wordsCloud: undefined,
+  activeHours: undefined,
+  anualMessages: undefined,
+  averageLength: undefined,
   globalAnalysis: undefined
 })
 
 export const mutations = {
-  setUser(state, user) {
-    state.user = user
+  setEmojisWall(state, emojisWall) {
+    state.emojisWall = emojisWall
   },
-  setChats(state, chats) {
-    state.chats = chats
+  setWordsCloud(state, wordsCloud) {
+    state.wordsCloud = wordsCloud
+  },
+  setActiveHours(state, activeHours) {
+    state.activeHours = activeHours
+  },
+  setAnualMessages(state, anualMessages) {
+    state.anualMessages = anualMessages
+  },
+  setAverageLength(state, averageLength) {
+    state.averageLength = averageLength
   },
   setGlobalAnalysis(state, globalAnalysis) {
     state.globalAnalysis = globalAnalysis
@@ -55,8 +127,11 @@ export const actions = {
       const telegramData = JSON.parse(jsonFile)
       const user = `user${telegramData.personal_information.user_id}`
       const chats = telegramData.chats.list
-      commit('setUser', user)
-      commit('setChats', chats)
+      commit('setEmojisWall', emojisWall(chats, user))
+      commit('setWordsCloud', wordsCloud(chats, user))
+      commit('setActiveHours', activeHours(chats, user))
+      commit('setAnualMessages', anualMessages(chats, user))
+      commit('setAverageLength', averageLength(chats, user))
     })
     reader.readAsText(file)
   },
@@ -115,60 +190,4 @@ export const actions = {
   }
 }
 
-export const getters = {
-  emojis (state) {
-    const emojis = {}
-    mapUserMessagesFromAllChats(state.chats, state.user, message => {
-      const message_emojis = getMessageEmojis(message)
-      if (message_emojis) {
-        // Increment emoji's counter
-        message_emojis.map(emoji => {
-          emojis[emoji] = emojis[emoji] ? emojis[emoji] + 1 : 1
-        })
-      }
-    })
-    return emojis
-  },
-  words (state) {
-    const words = {}
-    mapUserMessagesFromAllChats(state.chats, state.user, message => {
-      const messageWords = getMessageWords(message)
-      if (messageWords) {
-        messageWords.map(word => {
-          if (word.length > 4) {
-            words[word] = words[word] ? words[word] + 1 : 1
-          }
-        })
-      }
-    })
-    const highlyRepeatedWords = _.pickBy(words, word => word > 100)
-    return highlyRepeatedWords
-  },
-  activeHours (state) {
-    const activeHours = {}
-    mapUserMessagesFromAllChats(state.chats, state.user, message => {
-      const hour = new Date(message.date).getHours()
-      activeHours[hour] = activeHours[hour] ? activeHours[hour] + 1 : 1
-    })
-    return activeHours
-  },
-  anualMessages (state) {
-    let anualMessages = 0
-    mapUserMessagesFromAllChats(state.chats, state.user, message => {
-      const year = new Date(message.date).getFullYear()
-      if (year === 2021) {
-        anualMessages += 1
-      }
-    })
-    return anualMessages
-  },
-  averageLength (state) {
-    let lengthSum = 0
-    let totalMessages = 0
-    mapUserMessagesFromAllChats(state.chats, state.user, message => {
-      lengthSum += message.text.length
-      totalMessages += 1
-    })
-    return Math.round(lengthSum/totalMessages)
-  }
-}
+export const getters = {}
