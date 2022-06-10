@@ -35,8 +35,8 @@
           >Agree and unlock the report!</b-button>
         </div>
         <div v-else class="global-report__content">
-          <p>Anual Messages: {{ anualMessages }} vs {{ globalAnalysis.anualMessages.avg.longValue }}</p>
-          <p>Average Message Length: {{ averageLength }} vs {{ globalAnalysis.messageLength.avg.longValue }}</p>
+          <p class="strong">Anual Messages: {{ anualMessages }} vs {{ globalAnalysis.anualMessages.avg.longValue }}</p>
+          <p class="strong">Average Message Length: {{ averageLength }} vs {{ globalAnalysis.messageLength.avg.longValue }}</p>
         </div>
       </div>
     </section>
