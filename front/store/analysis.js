@@ -171,21 +171,23 @@ export const actions = {
       DbUser: 'wdtkfront',
       Sql: sql
     }).promise().then(response => {
-      redshiftData.getStatementResult({Id: response.Id}).promise().then(response => {
-        const globalAnalysis = {
-          anualMessages: {
-            max: response.Records[0][0],
-            min: response.Records[0][1],
-            avg: response.Records[0][2]
-          },
-          messageLength: {
-            max: response.Records[0][3],
-            min: response.Records[0][4],
-            avg: response.Records[0][5]
+      setTimeout(() => {
+        redshiftData.getStatementResult({Id: response.Id}).promise().then((response) => {
+          const globalAnalysis = {
+            anualMessages: {
+              max: response.Records[0][0],
+              min: response.Records[0][1],
+              avg: response.Records[0][2]
+            },
+            messageLength: {
+              max: response.Records[0][3],
+              min: response.Records[0][4],
+              avg: response.Records[0][5]
+            }
           }
-        }
-        commit('setGlobalAnalysis', globalAnalysis)
-      })
+          commit('setGlobalAnalysis', globalAnalysis)
+        })
+      }, 500)
     })
   }
 }

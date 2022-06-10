@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import RadarChart from '../components/RadarChart.vue'
 
 let width, height, gradient;
