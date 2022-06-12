@@ -18,6 +18,17 @@
         :options="activeHoursChartOptions"
       />
     </section>
+    <section class="section section--words">
+      <h1>Most used words</h1>
+      <wordcloud
+        v-if="wordsCloudList"
+        :data="wordsCloudList"
+        nameKey="word"
+        valueKey="frequency"
+        color="Category10"
+        :showTooltip="true"
+      />
+    </section>
     <section class="section section--global">
       <div class="global-report">
         <h1>You vs World</h1>
@@ -45,6 +56,8 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import _ from 'lodash'
+import wordcloud from 'vue-wordcloud'
 import RadarChart from '../components/RadarChart.vue'
 
 let width, height, gradient;
@@ -74,7 +87,10 @@ function gradientColor(context) {
 }
 
 export default {
-  components: { RadarChart },
+  components: {
+    RadarChart,
+    wordcloud
+  },
   name: 'HomePage',
   data () {
     return {
@@ -99,6 +115,15 @@ export default {
   },
   computed: {
     ...mapState('analysis', ['emojisWall', 'wordsCloud', 'activeHours', 'anualMessages', 'averageLength', 'globalAnalysis']),
+    wordsCloudList () {
+      const wordsList = Object.keys(this.wordsCloud).map(word => {
+        return {
+          'word': word,
+          'frequency': this.wordsCloud[word]
+        }
+      })
+      return _.cloneDeep(wordsList)
+    }
   },
   watch: {
     activeHours () {
@@ -118,19 +143,21 @@ export default {
       this.fetchGlobalData()
     },
     loadActiveHoursChartData () {
-      const isActiveHoursEmpty = Object.keys(this.activeHours).length === 0
-      if(!isActiveHoursEmpty) {
-        this.activeHoursChartData = {
-          labels: Object.keys(this.activeHours),
-          datasets: [
-            {
-              label: 'Messages per hour',
-              tension: 0.4,
-              data: Object.values(this.activeHours),
-              fill: true,
-              borderColor: gradientColor,
-            }
-          ]
+      if (this.activeHours) {
+        const isActiveHoursEmpty = Object.keys(this.activeHours).length === 0
+        if(!isActiveHoursEmpty) {
+          this.activeHoursChartData = {
+            labels: Object.keys(this.activeHours),
+            datasets: [
+              {
+                label: 'Messages per hour',
+                tension: 0.4,
+                data: Object.values(this.activeHours),
+                fill: true,
+                borderColor: gradientColor,
+              }
+            ]
+          }
         }
       }
     },
@@ -155,9 +182,14 @@ export default {
   justify-content: center;
 }
 .section--hours {
-  background: grey;
+  background: linear-gradient(grey,#001122);
   display: flex;
   justify-content: center;
+}
+.section--words {
+  background: linear-gradient(#001122,grey);
+  display: flex;
+  flex-direction: column;
 }
 .section--global {
   background: linear-gradient(grey,#001122);
