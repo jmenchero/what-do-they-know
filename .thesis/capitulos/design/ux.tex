@@ -15,7 +15,7 @@ En esta pantalla el objetivo principal es comunicar de la manera más concisa po
 
 En la figura \ref{FIG:ANALYZE} se presentan las instrucciones para generar la copia de seguridad de manera tanto escrita como visual para acompañar lo máximo posible al usuario durante el proceso que debe realizar inevitablemente fuera de la plataforma. Se pretende así cumplir con los requisitos RF-02 [Guía de exportación] y RF-03 [Procesar datos de Telegram].
 
-Antes de que el usuario comience con la copia de seguridad se avisa de que ninguno de sus datos saldrá de su ordenador para que la privacidad no sea un impedimento de uso y cumplir con el RNF-09 [Privacidad de los datos], la elección de palabras y acciones también pretende dejar constancia implícita de lo mismo, así como una nota sobre que pueden acceder al código fuente disponible en GitHub. Esto último ha sido motivado tanto por intentar comenzar una comunidad de desarrollo entorno a la plataforma como se indicaba en el RNF-10 [Comunidad de desarrollo], como en un ejercicio de transparencia para transmitir más confianza respecto a la forma de procesar sus datos privados.
+Antes de que el usuario comience con la copia de seguridad se avisa de que ninguno de sus datos saldrá de su ordenador para que la privacidad no sea un impedimento de uso y cumplir con el RNF-09 [Privacidad de los datos], la elección de palabras y acciones también pretende dejar constancia implícita de lo mismo. También se incluye una nota mencionando que los usuarios pueden acceder al código fuente disponible en GitHub, motivado tanto por intentar comenzar una comunidad de desarrollo entorno a la plataforma como se indicaba en el RNF-10 [Comunidad de desarrollo], como en un ejercicio de transparencia para transmitir más confianza respecto a la forma de procesar sus datos privados.
 
 \begin{figure}[]{FIG:ANALYZE}{Instrucciones para exportar el histórico}
     \image{14cm}{}{analyze}
@@ -29,7 +29,9 @@ Esta sección consta de múltiples pantallas, una por reporte generado, imitando
     \image{14cm}{}{emojis}
 \end{figure}
 
-Con estos reportes sobre el uso personal de la aplicación, que escapan al conocimiento que puede tener de manera intuitiva el usuario, se pretende cumplir con el RNF-06 [Interés personal], aportando información sobre el propio individuo que puede ser desconocida para él o ella. También la elección estética de los reportes, huyendo de mostrar la información de manera meramente textual sino utilizando infográficos llamativos y concisos, pretende satisfacer el requisito RNF-07 [Interés social]. Y detalles como la curva de uso horario permiten visualizar de manera implícita los horarios de sueño y actividad social del usuario, esperando aportar información suficientemente íntima como para promover una concienciación con sus datos privados (RNF-08 [Mensaje de concienciación]).
+Con estos reportes sobre el uso personal de la aplicación, que escapan al conocimiento que puede tener de manera intuitiva el usuario sobre sí mismo, se pretende cumplir con el RNF-06 [Interés personal], aportando información sobre el propio individuo que puede ser desconocida para él o ella. Paralelamente, la elección estética de los reportes pretende huir de mostrar la información de manera meramente textual sino utilizando infográficos llamativos, expresivos y concisos, pretendiendo satisfacer el requisito RNF-07 [Interés social].
+
+Detalles como la curva de uso horario permiten visualizar de manera implícita los horarios de sueño y actividad social del usuario, esperando aportar información suficientemente íntima como para promover una concienciación con sus datos privados (RNF-08 [Mensaje de concienciación]).
 
 \begin{figure}[]{FIG:HOURS}{Diagrama radial con el uso acumulativo por horas}
     \image{14cm}{}{hours}
@@ -37,10 +39,18 @@ Con estos reportes sobre el uso personal de la aplicación, que escapan al conoc
 
 \subsection{Reporte comparativo}
 
-Para acceder al reporte comparativo primero se solicita el permiso del usuario para almacenar sus datos como aparece en la figura \ref{FIG:UPLOAD}. Aunque no es necesario almacenar los datos del usuario para poder compararlos, se opta por esta estrategia para fomentar que compartan su reporte y mejorar la calidad del análisis global. De esta forma se permite así al usuario poder utilizar la herramienta de análisis individual sin compartir ningún dato, y decidir si desea compartir parte de su información con fines meramente estadísticos para desbloquear la comparativa con otros usuarios, acorde con el requisito RF-13 [Compartir estadísticas].
+Para acceder al reporte comparativo primero se solicita el permiso del usuario para almacenar sus datos como aparece en la figura \ref{FIG:UPLOAD}. Aunque no es necesario almacenar los datos del usuario para poder compararlos, se opta por esta estrategia para fomentar que compartan su reporte y mejorar la calidad del análisis global.
 
 \begin{figure}[]{FIG:UPLOAD}{Aceptación de datos a compartir}
     \image{14cm}{}{upload}
 \end{figure}
+
+De esta forma se permite así al usuario poder utilizar la herramienta de análisis individual sin compartir ningún dato, y decidir si desea compartir parte de su información con fines meramente estadísticos para desbloquear la comparativa con otros usuarios, acorde con el requisito RF-13 [Compartir estadísticas].
+
+\begin{figure}[]{FIG:GLOBAL}{Pantalla de reporte comparativo}
+    \image{14cm}{}{global}
+\end{figure}
+
+Tras dar el consentimiento para compartir sus datos, automáticamente se desbloquea el reporte global y se permite acceder a la comparativa de la figura \ref{FIG:GLOBAL}.
 
 \newpage

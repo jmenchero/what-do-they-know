@@ -1,9 +1,13 @@
 
-Sprints
+Tras el diseño de la experiencia de usuario y la infraestructura que le dará soporte, se elabora un plan secuencial de hitos para el proceso de desarrollo. Pretende servir tanto de guía a la hora de afrontar el desarrollo del proyecto, como para analizar el progreso del proyecto, permitiendo aún así la flexibilidad para cambiar el orden de prioridades durante la evaluación del transcurso del mismo.
+
+Se dividen en las siguientes historias de usuario:
 
 \begin{enumerate}
-    \item Frontend scaffolding with CD/CI and Infrastructure as a code with AWS
-    \item Upload steps and easy reports entirely in frontend
-    \item Save RAW data in S3 Warehouse
-    \item Save reports in DB
+    \item \textbf{Pantalla de presentación del proyecto}: Establecer el flujo de Desarrollo e Integración continuas entre GitHub y AWS. Permitiendo la compilación y despliegue en producción de un proyecto Vue con una pantalla estática de contenido informativo.
+    \item \textbf{Primer reporte para Telegram}: Se añade la pantalla de guía para la exportación de los datos, el procesado de los datos de Telegram en el cliente (con una definición de estructura de datos genérica que permita importar datos de otros servicios de mensajería como What´s App fácilmente en el futuro) y una primera pantalla de reporte.
+    \item \textbf{Reporte global de una métrica}: Incluye la pantalla de aceptación de cesión de datos, registrar y configurar el servicio de Redshift para almacenar los datos cedidos por todos los usuarios, conectar el cliente a la Data API de Redshift y visualizar una métrica que compare al usuario de la aplicación con el resto de datos almacenados.
+    \item \textbf{Ampliar reportes individuales}: Añadir el resto de pantallas con las analíticas definidas anteriormente.
+    \item \textbf{Ampliar métricas globales}: Completar el reporte global con más métricas.
+    \item \textbf{Dar soporte a What´s App}: Incluir un paso de elección de aplicación de mensajería a analizar, que lleve a la pantalla de acompañamiento correspondiente. Traducir los datos de What´s App al formato genérico definido en la aplicación y conectarlos con el pipeline de procesado de datos.
 \end{enumerate}

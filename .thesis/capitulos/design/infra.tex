@@ -7,7 +7,7 @@ Para dar soporte a la plataforma web y su necesidad de almacenamiento de datos, 
 
 \subsection{Almacenamiento del código}
 
-De todas las opciones alternativas de almacenamiento de código (GitHub, BitBucket, GitLab, Beanstalk,...) se ha optado por GitHub por ser el estándar en la comunidad open source (ya que en el requisito RNF-10 [Comunidad de desarrollo] se pretende generar una comunidad de desarrollo entorno al proyecto), ofrecer servicios de integración continua como GitHub Actions o herramientas para la gestión de claves como GitHub Secrets y ser gratuito.
+De todas las opciones alternativas de almacenamiento de código (GitHub, BitBucket, GitLab, Beanstalk,...) se ha optado por GitHub por ser el estándar en la comunidad open source (ya que en el requisito RNF-10 [Comunidad de desarrollo] se pretende generar una comunidad de desarrollo entorno al proyecto), ofrecer servicios de integración continua como GitHub Actions o herramientas para la gestión de claves como GitHub Secrets así como por ser un servicio gratuito.
 
 \subsection{Proveedor de cloud}
 
@@ -21,13 +21,15 @@ Terraform funciona comparando el nuevo estado de infraestructura definido contra
 
 En este caso en particular, al utilizar GitHub Actions para ejecutar esos cambios, se requiere de lo que se denomina un "estado remoto". Sin un estado remoto, Terraform genera un fichero local que no seria capaz de salvar en GitHub, por ello requiere configurar a mano un almacenamiento para el estado de manera remota. Se considera una practica estándar en la integración entre Terraform y AWS utilizar un bucket de S3 para ello.
 
+En el ámbito del proyecto se emplea Terraform para definir y configurar los tres recursos que se detallan a continuación (un bucket de S3 para almacenar el build de la plataforma, CloudFront como CDN y Redshift para almacenar y realizar los reportes globales).
+
 \subsection{Hosting de la plataforma}
 
-Para el hosting del cliente web se utiliza S3 por su seguridad y disponibilidad de acceso RNF-01 [Alta disponibilidad], la facilidad de sincronización con GitHub Actions a la hora de realizar los despliegues y permitir una rápida configuración para la redirección de dominios al contenido web almacenado. Se utiliza en conjunto con CloudFront como servicio de CDN encargado de acelerar el acceso en sus Edge Locations (caches con réplicas de contenido distribuidas geográficamente para garantizar un rápido acceso a la plataforma en cualquier lugar del mundo RNF-02 [Disponibilidad geográfica]) y ofrecer una conexión HTTPS segura RNF-09 [Privacidad de los datos].
+Para el hosting del cliente web se utiliza AWS S3 (Simple Storage Service) por su seguridad y disponibilidad de acceso RNF-01 [Alta disponibilidad], la facilidad de sincronización con GitHub Actions a la hora de realizar los despliegues y permitir una rápida configuración para la redirección de dominios al contenido web almacenado. Se utiliza en conjunto con CloudFront como servicio de CDN encargado de acelerar el acceso en sus Edge Locations (caches con réplicas de contenido distribuidas geográficamente para garantizar un rápido acceso a la plataforma en cualquier lugar del mundo RNF-02 [Disponibilidad geográfica]) y ofrecer una conexión HTTPS segura RNF-09 [Privacidad de los datos].
 
 \subsection{Base de datos}
 
-Basándonos en las categorizaciones expuestas en el capítulo anterior y teniendo en cuenta tanto la elección de proveedor de cloud anterior, como que la naturaleza de los datos a almacenar es un resumen de estructura fija, anonimizado y ya procesado del usuario, y que el uso que se le va a dar es realizar un reporte estadístico de cada una de las columnas de todos los usuarios en conjunto y no individualmente, la opción que más se adecúa a las necesidades del proyecto es el servicio de AWS Redshift, por ser relacional, columnar y proveer de escalado y replicado automáticos RNF-03 [Escalabilidad horizontal].
+Basándonos en las categorizaciones expuestas en el capítulo anterior y teniendo en cuenta tanto la elección de proveedor de cloud, como la naturaleza de los datos a almacenar (un resumen de estructura fija, anonimizado y ya procesado del usuario), y que el uso de los datos almacenados va a ser realizar un reporte estadístico de cada una de las columnas de todos los usuarios en conjunto y no individualmente, la opción que más se adecúa a las necesidades del proyecto es el servicio de AWS Redshift, por ser relacional, columnar y proveer de escalado y replicado automáticos RNF-03 [Escalabilidad horizontal].
 
 Al funcionar encima de S3 garantiza la misma disponibilidad, escalabilidad y fiabilidad que S3, y al ser una base de datos columnar permite realizar análisis sobre conjuntos de atributos (el caso principal de uso de la aplicación) con un menor tiempo de respuesta RNF-05 [Tiempos de respuesta].
 
@@ -40,3 +42,5 @@ De todos los servidores disponibles encargados de realizar el procesamiento de R
 Todos los servicios disponibles en AWS están restringidos al acceso público por defecto, para ello es necesario configurar una serie de políticas de autenticación y autorización que permitan acceder a los usuarios tanto al contenido de la web estática generada y almacenada en S3, y distribuida por CloudFront, como para realizar consultas desde el cliente web a la Data API de Redshift.
 
 Para ello el servicio de gestión de usuarios y acceso principal de Amazon Web Services es IAM, que se ha utilizado también para generar los accesos a los servicios de AWS para GitHub Actions y Terraform.
+
+\newpage
