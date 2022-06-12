@@ -1,9 +1,11 @@
 
+En esta sección analizaremos algunas aplicaciones existentes con forma u objetivos similares, tratando de observar si hay un nicho de usuarios interesados que den viabilidad al proyecto, para posteriormente enumerar las limitaciones de estos a subsanar.
+
 \subsection{Spotify Wrapped}
 
-Desde 2016 Spotify lanza anualmente una campaña de marketing que permite a sus usuarios visualizar una compilación de sus datos de uso, comparándolos con el resto de la comunidad que utiliza la aplicación. Desde resúmenes meramente estadísticos, así como análisis de emociones o intereses.
+Desde 2016 Spotify lanza anualmente una campaña de marketing\cite{SpotifyWrapped} que permite a sus usuarios visualizar una compilación de sus datos de uso como los mostrados en la figura \ref{FIG:SPOTIFY}, comparándolos con el resto de la comunidad que utiliza la aplicación. Desde resúmenes meramente estadísticos, así como análisis de emociones o intereses.
 
-\begin{figure}[Spotify Wrapped]{FIG:SPOTIFY}{Ejemplos de pantallas de reporte de la iniciativa Spotify Wrapped}
+\begin{figure}[Spotify Wrapped]{FIG:SPOTIFY}{Ejemplos de pantallas de reporte de la iniciativa Spotify Wrapped. Fuente: Spotify.com}
     \image{15cm}{}{spotify}
 \end{figure}
 
@@ -13,9 +15,9 @@ Esta campaña ha tenido un gran impacto social y cultural, llegando a formar par
 
 \subsection{Tinder Insights}
 
-Creada en 2019 por Dora Szucs (Software Engineer) y Krisztina Szucs (UX Designer) de manera independiente, da acceso a información estadística sobre el uso de la aplicación Tinder, como la cantidad de mensajes enviados y recibidos, tiempo medio de chat, ...
+Creada en 2019 por Dora Szucs (Software Engineer) y Krisztina Szucs (UX Designer) de manera independiente\cite{TinderInsigths}, como se puede observar en la figura \ref{FIG:TINDER} da acceso a información estadística sobre el uso de la aplicación Tinder, como la cantidad de mensajes enviados y recibidos, tiempo medio de chat, ...
 
-\begin{figure}[Tinder Insights]{FIG:TINDER}{Ejemplos de pantallas de reporte de Tinder Insights}
+\begin{figure}[Tinder Insights]{FIG:TINDER}{Ejemplos de pantallas de reporte de Tinder Insights. Fuente: TinderInsights.com}
     \image{6cm}{}{tinder1}
     \image{6cm}{}{tinder2}
 \end{figure}
@@ -26,18 +28,22 @@ Siguiendo el mismo planteamiento que nuestro proyecto, requieren que el usuario 
 
 \subsection{Chat Visualizer}
 
-Una herramienta que permite analizar la actividad de un chat de What's App de manera estadística (72K chats analizados en el momento de la redacción de esta memoria).
+Una herramienta que permite analizar la actividad de un chat de What's App de manera estadística\cite{ChatVisualizer} (72K chats analizados en el momento de la redacción de esta memoria). Algunos ejemplos de sus infográficos se pueden observar en la figura \ref{FIG:WPP}.
 
-\begin{figure}[Chat Visualizer]{FIG:WPP}{Ejemplos de pantallas de reporte de Chat Visualizer}
+\begin{figure}[Chat Visualizer]{FIG:WPP}{Ejemplos de pantallas de reporte de Chat Visualizer. Fuente: ChatVisualizer.com}
     \image{15cm}{}{wpp}
 \end{figure}
 
-Contras que este trabajo pretende subsanar:
+\subsection{Limitaciones de las herramientas analizadas}
+
+Estas herramientas existentes, aunque de gran calidad, ninguna ataja el objeto de estudio de este trabajo: La información sensible de los históricos de mensajes.
+
+Las limitaciones que este trabajo pretende subsanar son:
 \begin{itemize}
-    \item Solo permite analizar una conversación
-    \item Solo analiza información de What's App
-    \item Procesa los datos en el lado del servidor, sin garantizar la privacidad del usuario
-    \item Solo ofrece un análisis meramente estadístico de la actividad del chat
+    \item No ofrecer las conclusiones que se pueden obtener de los datos
+    \item No es posible analizar más de una conversación en conjunto
+    \item Otras aplicaciones de mensajería como Telegram quedan excluidas
+    \item No garantizar la privacidad del usuario al procesar los datos en el lado del servidor
 \end{itemize}
 
 \newpage

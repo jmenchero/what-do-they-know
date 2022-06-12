@@ -1,14 +1,6 @@
 
-\subsection{Relacionales vs No relacionales}
+A la hora de seleccionar una base de datos para un proyecto, es importante conocer los tipos de bases de datos disponibles en función de su forma de datos y relaciones, y la forma de almacenamiento en memoria.
 
-\begin{itemize}
-    \item \textbf{Relacionales}: Almacenan la información de manera estructurada, con una forma constante y una declaración explicita de las relaciones entre los diversos elementos (MySQL, Oracle, SQL Server, PostgreSQL, Redshift, ...).
-    \item \textbf{No relacionales}: Almacenan la información como documentos independientes, que no tienen por qué mantener la misma forma ni tener relaciones explicitas (MongoDB, Redis, Elasticsearch, Cassandra, ...).
-\end{itemize}
+En función de la forma de los datos podemos diferenciar las bases de datos relacionales de las no relacionales. Donde las relacionales almacenan la información de manera estructurada, con una forma constante y una declaración explicita de las relaciones entre los diversos elementos (MySQL, Oracle, SQL Server, PostgreSQL, Redshift, ...). Y mientras que las no relacionales almacenan la información como documentos independientes, que no tienen por qué mantener la misma forma ni tener relaciones explicitas (MongoDB, Redis, Elasticsearch, Cassandra, ...).
 
-\subsection{Columnares vs Orientadas a filas}
-
-\begin{itemize}
-    \item \textbf{Columnares}: Almacenan de manera contigua cada columna o atributo, para acelerar el análisis estadístico de toda una tabla (Redshift, BigQuery, ...).
-    \item \textbf{Orientadas a filas}: Almacenan en memoria contigua la información de cada entidad, permitiendo un acceso rápido a todos los datos de una misma entidad (SQLServer, PostgreSQL, ...).
-\end{itemize}
+Según cómo se almacenan los datos en memoria, podemos distinguir las bases de datos columnares de las orientadas a filas. Según la cuál las columnares almacenan de manera contigua cada columna o atributo, para acelerar el análisis estadístico de toda una tabla (Redshift, BigQuery, ...). Y las orientadas a filas almacenan en memoria contigua la información de cada entidad, permitiendo un acceso rápido a todos los datos de una misma entidad (SQLServer, PostgreSQL, ...).
