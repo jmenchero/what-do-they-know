@@ -1,14 +1,14 @@
 <template>
   <full-page ref="fullpage">
     <section class="section section--emojis">
-      <div 
+      <h1>Your emojis wall</h1>
+      <div
         v-for="(count, emoji) in emojisWall"
         :key="emoji"
         :style="emojiStyle(count)"
       >
         {{ emoji }}
       </div>
-      <h1>Your emojis wall</h1>
     </section>
     <section class="section section--hours">
       <h1>Your hourly use</h1>
@@ -164,9 +164,9 @@ export default {
     emojiStyle(count) {
       return `
         position: absolute;
-        font-size: ${count}px;
-        left: ${10+Math.floor(Math.random()*80)}vw;
-        top: ${10+Math.floor(Math.random()*80)}vh;
+        font-size: ${count*2}px;
+        left: calc(${Math.floor(Math.random()*100)}vw - ${count*2}px);
+        top: calc(${Math.floor(Math.random()*100)}vh - ${count*2}px);
         transform: translatey(0px);
         animation: float ${Math.random()*10+5}s ease-in-out;
       `
@@ -180,6 +180,9 @@ export default {
   background: linear-gradient(#001122,grey);
   display: flex;
   justify-content: center;
+}
+.section--emojis h1 {
+  z-index: 10;
 }
 .section--hours {
   background: linear-gradient(grey,#001122);
