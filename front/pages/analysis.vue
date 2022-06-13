@@ -11,12 +11,20 @@
       </div>
     </section>
     <section class="section section--hours">
-      <h1>Your hourly use</h1>
-      <radar-chart
-        v-if="activeHoursChartData" 
-        :chart-data="activeHoursChartData"
-        :options="activeHoursChartOptions"
-      />
+      <div class="section--hours__hourly-use">
+        <h1>Your hourly use</h1>
+        <radar-chart
+          v-if="activeHoursChartData" 
+          :chart-data="activeHoursChartData"
+          :options="activeHoursChartOptions"
+        />
+      </div>
+      <div class="section--hours__bedtime">
+        It seems like you usually go to bed around 
+        <strong><b-icon icon="weather-sunset-down" size="is-large" />{{bedTime.bed}}:00h</strong>
+        and wake up at
+        <strong><b-icon icon="weather-sunset-up" size="is-large" />{{bedTime.wake}}:00h</strong>
+      </div>
     </section>
     <section class="section section--words">
       <h1>Most used words</h1>
@@ -55,7 +63,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 import _ from 'lodash'
 import wordcloud from 'vue-wordcloud'
 import RadarChart from '../components/RadarChart.vue'
@@ -114,7 +122,17 @@ export default {
     }
   },
   computed: {
-    ...mapState('analysis', ['emojisWall', 'wordsCloud', 'activeHours', 'anualMessages', 'averageLength', 'globalAnalysis']),
+    ...mapState('analysis', [
+      'emojisWall',
+      'wordsCloud',
+      'activeHours',
+      'anualMessages',
+      'averageLength',
+      'globalAnalysis'
+    ]),
+    ...mapGetters('analysis', [
+      'bedTime'
+    ]),
     wordsCloudList () {
       const wordsList = Object.keys(this.wordsCloud).map(word => {
         return {
@@ -187,7 +205,22 @@ export default {
 .section--hours {
   background: linear-gradient(grey,#001122);
   display: flex;
+  flex-direction: column;
   justify-content: center;
+}
+.section--hours__hourly-use {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.section--hours__bedtime {
+  margin: 1rem;
+  font-size: 1.5rem;
+  color: #FFFFFFA0
+}
+.section--hours__bedtime strong {
+  font-size: 45px;
+  color: #FFFFFFFF
 }
 .section--words {
   background: linear-gradient(#001122,grey);

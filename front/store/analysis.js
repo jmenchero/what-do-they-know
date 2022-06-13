@@ -60,12 +60,34 @@ function wordsCloud (chats, user) {
 }
 
 function activeHours (chats, user) {
+  const allHours = [...Array(24).keys()]
   const activeHours = {}
+  allHours.forEach((hour) => activeHours[hour] = 0)
   mapUserMessagesFromAllChats(chats, user, message => {
     const hour = new Date(message.date).getHours()
-    activeHours[hour] = activeHours[hour] ? activeHours[hour] + 1 : 1
+    activeHours[hour] = activeHours[hour] + 1
   })
   return activeHours
+}
+
+function differenceWithNextHour (activeHours) {
+  const differences = {}
+  Object.keys(activeHours).map(hour => {
+    const hourAsNumber = parseInt(hour)
+    const nextHour = hourAsNumber === 23 ? 0 : hourAsNumber + 1
+    differences[hour] = activeHours[nextHour] - activeHours[hour]
+  })
+  return differences
+}
+
+function bedTimeAnalysis (activeHours) {
+  const differences = differenceWithNextHour(activeHours)
+  const bedTime = Object.keys(differences).reduce((a, b) => (differences[a] < differences[b]) ? a : b)
+  const wakeTime = Object.keys(differences).reduce((a, b) => (differences[a] > differences[b]) ? a : b)
+  return {
+    'bed': bedTime,
+    'wake': wakeTime
+  }
 }
 
 function anualMessages (chats, user) {
@@ -192,4 +214,8 @@ export const actions = {
   }
 }
 
-export const getters = {}
+export const getters = {
+  bedTime (state) {
+    return bedTimeAnalysis(state.activeHours)
+  }
+}
