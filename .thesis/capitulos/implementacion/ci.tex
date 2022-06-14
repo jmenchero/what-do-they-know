@@ -1,0 +1,6 @@
+
+Para la definición de la infraestructura como código se han empleado dos lenguajes descriptivos. Por un lado se utiliza Terraform, cuya sintaxis permite definir una serie de recursos y servicios en AWS de manera descriptiva, entre los que se encuentran los buckets de S3, la configuración de acceso pública al build, el servicio de Redshift con su API de datos y la definición del CDN de CloudFront. Y para el proceso de integración continua se emplea yaml, el lenguaje utilizado por GitHub Actions para la definición de sus procesos de integración, en el caso de este proyecto, encargado de ejecutar las actualizaciones de Terraform correspondientes, compilar la plataforma web y desplegar los cambios en el bucket de hosting cada vez que se agrega un commit a la rama de producción del repositorio. Podemos observar los pasos siendo ejecutados en una tarea de GitHub actions en la figura 
+
+\begin{figure}[Ejemplo de tarea ejecutada por GitHub Actions]{FIG:ACTIONS}{Acción finalizada satisfactoriamente tras un commit correcto en el repositorio}
+    \image{12cm}{}{actions}
+\end{figure}

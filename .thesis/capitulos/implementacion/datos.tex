@@ -1,0 +1,13 @@
+
+
+Una vez cargado el input del usuario en memoria (el histórico de mensajes) comienza el procesado de los datos con el objetivo de elaborar resúmenes de los mismos, simples e independientes, con un formato fácilmente legible por las vistas que se encargarán de mostrar sus resultados de manera visual.
+
+Para ello existen dos módulos principales en la aplicación, por un lado encontramos la conocida como store utilizando la librería Vuex, una implementación para Vue del State Management Pattern\cite{VueJS}. Este patrón consiste en la aplicación de un flujo de una sola dirección en los datos. De forma que las acciones mutan el estado de los datos, y este es representado en la vista, pero manteniendo dicho estado en un singleton común a toda la aplicación para permitir su consulta por parte de toda la aplicación, asegurando que solo se consultan los datos en modo lectura, y que cualquier mutación se canaliza a través de un solo punto como se detalla en la figura \ref{FIG:VUEX}.
+
+\begin{figure}[Diagrama de flujo de Vuex]{FIG:VUEX}{Diagrama de flujo de Vuex. Fuente: VueJS.org}
+    \image{12cm}{}{vuex}
+\end{figure}
+
+En este módulo se encuentran por un lado las acciones encargadas de procesar los datos generando los reportes, y por otro el estado de la aplicación, con la información de los reportes almacenada y accesible por cualquier componente visual de la misma.
+
+El otro módulo es el encargado de realizar las conexiones entre el cliente y la API de datos de Redshift, tanto para volcar los datos de aquellos usuarios que acepten compartirlos como para realizar las consultas analíticas correspondientes para obtener los reportes globales.
