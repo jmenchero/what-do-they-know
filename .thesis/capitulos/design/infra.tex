@@ -19,7 +19,7 @@ Almacenar la definición de la infraestructura como código permite aplicar el p
 
 Terraform funciona comparando el nuevo estado de infraestructura definido contra el anterior, y ejecutando una serie de pasos mediante las APIs a las que tiene acceso para cambiar en el entorno todo aquello que sea necesario para dejarlo como en la nueva definición del estado.
 
-En este caso en particular, al utilizar GitHub Actions para ejecutar esos cambios, se requiere de lo que se denomina un "estado remoto". Sin un estado remoto, Terraform genera un fichero local que no seria capaz de salvar en GitHub, por ello requiere configurar a mano un almacenamiento para el estado de manera remota. Se considera una practica estándar en la integración entre Terraform y AWS utilizar un bucket de S3 para ello.
+En este caso en particular, al utilizar GitHub Actions para ejecutar esos cambios, se requiere de lo que se denomina un ``estado remoto''. Sin un estado remoto, Terraform genera un fichero local que no seria capaz de salvar en GitHub, por ello requiere configurar a mano un almacenamiento para el estado de manera remota. Se considera una practica estándar en la integración entre Terraform y AWS utilizar un bucket de S3 para ello.
 
 En el ámbito del proyecto se emplea Terraform para definir y configurar los tres recursos que se detallan a continuación (un bucket de S3 para almacenar el build de la plataforma, CloudFront como CDN y Redshift para almacenar y realizar los reportes globales).
 
