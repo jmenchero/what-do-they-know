@@ -1,0 +1,24 @@
+
+Tras lo planteado en la sección \ref{SEC:FRONTEND}, la selección final para el framework de frontend es Vue.JS, por su crecimiento de uso en la comunidad así como por su asequible curva de aprendizaje.
+
+\begin{figure}[Division por componentes]{FIG:COMPONENTES}{Diagrama de asociación entre organización visual y estructura de ficheros. Fuente: VueJS.org}
+    \image{12cm}{}{componentes}
+\end{figure}
+
+Vue.JS es un framework que extiende HTML, JavaScript y CSS\cite{VueJS} como se puede observar en el ejemplo de la figura \ref{FIG:VUE}, ofreciendo una sintaxis propia enriquecida que permite la separación conceptual del código en componentes reutilizables como se muestra de manera gráfica en la figura \ref{FIG:COMPONENTES} (siguiendo los principios de reusabilidad de componentes gráficos descritos en el libro Atomic Design\cite{AtomicDesign}) esperando así facilitar la contribución de código por parte de la comunidad (RNF-10 [Comunidad de desarrollo]), y un sistema de reactividad integrado que permite regenerar nodos HTML ante cambios de los datos almacenados, facilitando una carga dinámica del contenido. También permite introducir conceptos de programación estructurada dentro del paradigma declarativo de HTML, siendo más realista con la integración actual entre JavaScript y el lenguaje de marcado. 
+
+\begin{figure}[Ejemplo de componente en Vue]{FIG:VUE}{Ejemplo de componente en Vue. Fuente: VueJS.org}
+    \image{9cm}{}{vue}
+\end{figure}
+
+El framework Nuxt.JS también ha sido utilizado en la aplicación, por ser una capa por encima de Vue.JS, Node.JS y Webpack orientada a facilitar el enrutado entre URLs y componentes\cite{NuxtJS}, dejando una estructura más intuitiva de la aplicación separando los conceptos de páginas y componentes, y permitiéndonos generar un build de la web de manera estática con el modo Single Page Application. Pudiendo así prescindir de un servidor web dinámico, y permitiéndonos el uso de AWS S3 como hosting y AWS CloudFront como CDN (en el caso de no compilar un contenido estático, no podríamos hacer uso de un CDN para garantizar el acceso global a la aplicación, sino que deberíamos proveer de réplicas del servidor sincronizadas a lo largo del globo).
+
+También se ha empleado la librería Fullpage.JS, que permite la navegación en formato carrusel\cite{FullpageJS}, similar a la de la iniciativa de referencia Spotify Wrapped. El conjunto de estas tres tecnologías, Vue.JS para los componentes, Nuxt.JS para las páginas y Fullpage.JS para la navegación en formato carrusel, ha permitido asociar la división conceptual de las dos principales secciones de la experiencia de usuario (introducción y análisis) en dos ficheros de páginas diferentes, y cada pantalla o reporte en su propio fichero de componente aislado como se aprecia en la figura \ref{FIG:VISUALFILES}.
+
+\begin{figure}[Estructura de ficheros]{FIG:VISUALFILES}{Estructura de ficheros de los componentes visuales de la plataforma}
+    \image{7cm}{}{visualfiles}
+\end{figure}
+
+Cada componente se encarga de describir la organización de los elementos visuales que contiene su reporte, sus características estéticas y de transformar los datos, ya preparados y listos para consumir, al infográfico correspondiente.
+
+Para ciertos elementos gráficos se emplea la librería Buefy, que provee de una serie de componentes responsive atómicos (como botones, slides, ...) listos para ser empleados en el sistema de datos reactivos de Vue\cite{Buefy}.
