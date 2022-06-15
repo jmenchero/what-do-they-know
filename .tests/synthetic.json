@@ -1,0 +1,155 @@
+{
+    "about": "Here is the data you requested. Remember: Telegram is ad free, it doesn't use your data for ad targeting and doesn't sell it to others. Telegram only keeps the information it needs to function as a secure and feature-rich cloud service.\n\nCheck out Settings > Privacy & Security on Telegram's mobile apps for the relevant settings.",
+    "personal_information": {
+        "user_id": 393542994,
+        "first_name": "Juan",
+        "last_name": "Menchero",
+        "username": "@jmenchero"
+    },
+    "chats": {
+        "about": "This page lists all chats from this export.",
+        "list": [
+            {
+                "type": "saved_messages",
+                "id": 42154127,
+                "messages": [
+                    {
+                        "id": 254881,
+                        "type": "message",
+                        "date": "2020-12-20T00:53:51",
+                        "from": "Juan Menchero",
+                        "from_id": "user393542994",
+                        "text": "Genial"
+                    },{
+                        "id": 254882,
+                        "type": "message",
+                        "date": "2020-12-20T00:53:56",
+                        "from": "Juan Menchero",
+                        "from_id": "user393542994",
+                        "text": "Asi no te pillo trabajando"
+                    },{
+                        "id": 254883,
+                        "type": "message",
+                        "date": "2020-12-20T00:54:01",
+                        "from": "Juan Menchero",
+                        "from_id": "user393542994",
+                        "text": "Intentamos cuadrar horas"
+                    },{
+                        "id": 254884,
+                        "type": "message",
+                        "date": "2020-12-20T00:55:37",
+                        "from": "Juan Menchero",
+                        "from_id": "user393542994",
+                        "text": "No esta nada mal 😊😊😊"
+                    },{
+                        "id": 254886,
+                        "type": "message",
+                        "date": "2020-12-20T00:58:18",
+                        "from": "Defessus",
+                        "from_id": "user42154127",
+                        "text": "Jajajajajaja"
+                    },{
+                        "id": 254887,
+                        "type": "message",
+                        "date": "2020-12-20T00:58:34",
+                        "from": "Defessus",
+                        "from_id": "user42154127",
+                        "text": "Y a mi me da igual que sea en laborables"
+                    },{
+                        "id": 254888,
+                        "type": "message",
+                        "date": "2020-12-20T00:58:54",
+                        "from": "Defessus",
+                        "from_id": "user42154127",
+                        "text": "Habrá que trabajar pero luego podemos hacer turismo"
+                    },{
+                        "id": 254889,
+                        "type": "message",
+                        "date": "2020-12-20T00:58:57",
+                        "from": "Defessus",
+                        "from_id": "user42154127",
+                        "text": "Pero sí"
+                    },{
+                        "id": 254890,
+                        "type": "message",
+                        "date": "2020-12-20T00:59:03",
+                        "from": "Defessus",
+                        "from_id": "user42154127",
+                        "text": "Vamos hablando"
+                    },{
+                        "id": 255098,
+                        "type": "message",
+                        "date": "2020-12-21T14:26:06",
+                        "from": "Juan Menchero",
+                        "from_id": "user393542994",
+                        "text": "Tu sabes que vas a estar al lado de la selva de Irati?"
+                    },{
+                        "id": 255182,
+                        "type": "message",
+                        "date": "2020-12-21T19:15:18",
+                        "from": "Defessus",
+                        "from_id": "user42154127",
+                        "text": "Oh"
+                    },{
+                        "id": 255184,
+                        "type": "message",
+                        "date": "2020-12-21T19:15:32",
+                        "from": "Defessus",
+                        "from_id": "user42154127",
+                        "text": "No tenía ni idea de que ese sitio existía jaja"
+                    },{
+                        "id": 255185,
+                        "type": "message",
+                        "date": "2020-12-21T19:15:36",
+                        "from": "Defessus",
+                        "from_id": "user42154127",
+                        "text": "Para que te hagas una idea."
+                    },{
+                        "id": 255186,
+                        "type": "message",
+                        "date": "2020-12-21T19:15:39",
+                        "from": "Defessus",
+                        "from_id": "user42154127",
+                        "text": "Jajajajaja"
+                    },{
+                        "id": 255187,
+                        "type": "message",
+                        "date": "2020-12-21T19:15:44",
+                        "from": "Defessus",
+                        "from_id": "user42154127",
+                        "text": "¿Tú sí lo conoces?"
+                    },{
+                        "id": 255195,
+                        "type": "message",
+                        "date": "2020-12-21T19:21:53",
+                        "from": "Juan Menchero",
+                        "from_id": "user393542994",
+                        "text": "Nunca he ido pero he estado al lado"
+                    },{
+                        "id": 255196,
+                        "type": "message",
+                        "date": "2020-12-21T19:21:58",
+                        "from": "Juan Menchero",
+                        "from_id": "user393542994",
+                        "text": "Y es un sitio espectacular"
+                    },{
+                        "id": 255198,
+                        "type": "message",
+                        "date": "2020-12-21T19:22:04",
+                        "from": "Juan Menchero",
+                        "from_id": "user393542994",
+                        "text": "Google it 🌚"
+                    },{
+                        "id": 255241,
+                        "type": "message",
+                        "date": "2020-12-21T19:46:32",
+                        "from": "Defessus",
+                        "from_id": "user42154127",
+                        "reply_to_message_id": 255196,
+                        "text": "Woah"
+                    }
+                ]
+            }
+        ]
+    }
+}
