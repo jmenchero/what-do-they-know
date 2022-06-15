@@ -1,7 +1,7 @@
 
-Una vez cargado el input del usuario en memoria (el histórico de mensajes) comienza el procesado de los datos con el objetivo de elaborar resúmenes de los mismos, simples e independientes, con un formato fácilmente legible por las vistas que se encargarán de mostrar sus resultados de manera visual.
+Una vez cargado el el histórico de mensajes del usuario en memoria comienza el procesado de los datos con el objetivo de elaborar resúmenes de los mismos, simples e independientes, con un formato fácilmente legible por las vistas que se encargarán de mostrar sus resultados de manera visual.
 
-Para ello existen dos módulos principales en la aplicación, por un lado encontramos la conocida como store utilizando la librería Vuex, una implementación para Vue del State Management Pattern\cite{VueJS}. Este patrón consiste en la aplicación de un flujo de una sola dirección en los datos. De forma que las acciones mutan el estado de los datos, y este es representado en la vista, pero manteniendo dicho estado en un singleton común a toda la aplicación para permitir su consulta por parte de toda la aplicación, asegurando que solo se consultan los datos en modo lectura, y que cualquier mutación se canaliza a través de un solo punto como se detalla en la figura \ref{FIG:VUEX}.
+Para ello existen dos módulos principales en la aplicación, por un lado encontramos la conocida como store utilizando la librería Vuex, una implementación para Vue del State Management Pattern\cite{VueJS}. Este patrón consiste en la aplicación de un flujo de una sola dirección en los datos. Así las acciones mutan el estado de los datos, y este es representado en la vista, pero manteniendo dicho estado en un singleton común a toda la aplicación para permitir su consulta por parte de toda la aplicación. De esta forma se asegura que solo se consultan los datos en modo lectura, y que cualquier mutación se canaliza a través de un solo punto como se detalla en la figura \ref{FIG:VUEX}.
 
 \begin{figure}[Diagrama de flujo de Vuex]{FIG:VUEX}{Diagrama de flujo de Vuex. Fuente: VueJS.org}
     \image{12cm}{}{vuex}
@@ -9,4 +9,14 @@ Para ello existen dos módulos principales en la aplicación, por un lado encont
 
 En este módulo se encuentran por un lado las acciones encargadas de procesar los datos generando los reportes, y por otro el estado de la aplicación, con la información de los reportes almacenada y accesible por cualquier componente visual de la misma.
 
-El otro módulo es el encargado de realizar las conexiones entre el cliente y la API de datos de Redshift, tanto para volcar los datos de aquellos usuarios que acepten compartirlos como para realizar las consultas analíticas correspondientes para obtener los reportes globales.
+\begin{figure}[Esquema del histórico de mensajes de Telgram]{FIG:SCHEMA}{Esquema del histórico de mensajes de Telgram}
+    \image{12cm}{}{schema}
+\end{figure}
+
+En la figura \ref{FIG:SCHEMA} se puede visualizar un resumen de la estructura de los datos a ingerir. Una vez en la memoria de la aplicación se provee de una serie de métodos (uno por cada reporte) que se encargan de realizar las análiticas correspondientes para posteriormente almacenarlas en la memoria persistente de la aplicación. Tras lo cual, los reportes ya están disponibles para su consulta por parte de las vistas.
+
+Cada uno de esos métodos acepta una lista de chats, con a su vez una lista de mensajes por cada chat, como parámetro, y devuelven un objeto con el reporte en el formato esperado. De esta manera aseguramos que puedan ser compatibles con cualquier servicio de mensajería instantánea con tan solo una transformación previa de la estructura de los datos si es necesario.
+
+Como las librerías de análisis de datos para JavaScript en cliente son limitadas, todas estas funciones análiticas están implementadas a mano para permitir un ajuste más fino de su funcionalidad y performance. Tan solo se utiliza la librería Lodash para facilitar algunas transformaciones de datos así como por su sintáxis funcional, útil para el análisis\cite{Lodash}.
+
+El otro módulo es el encargado de realizar las conexiones entre el cliente y la API de datos de Redshift, tanto para volcar los datos de aquellos usuarios que acepten compartirlos como para realizar las consultas analíticas correspondientes para obtener los reportes globales. En concreto, solo se almacenan en Redshift algunos datos estadísticos puntuales como la longitud media de los mensajes o la cantidad total de mensajes, para evitar almacenar cualquier dato comprometido del usuario.
