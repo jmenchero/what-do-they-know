@@ -233,8 +233,8 @@ export const actions = {
   },
   dumpAnonymizedData ({ getters }) {
     var redshiftData = new RedshiftData({
-      accessKeyId: 'AKIAW64YNGGHYK7FKRXA',
-      secretAccessKey: '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',
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
       region: 'eu-west-3'
     })
     const sql = `insert into globalstats
@@ -249,8 +249,8 @@ export const actions = {
   },
   fetchGlobalData ({ commit }) {
     var redshiftData = new RedshiftData({
-      accessKeyId: 'AKIAW64YNGGHYK7FKRXA',
-      secretAccessKey: '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',
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
       region: 'eu-west-3'
     })
     const sql = `select
