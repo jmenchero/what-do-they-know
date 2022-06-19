@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'front',
+    title: 'What Do They Know? - Chat analyzer tool',
     htmlAttrs: {
       lang: 'en'
     },
