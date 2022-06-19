@@ -32,3 +32,23 @@ resource "aws_redshift_cluster" "db" {
   cluster_type        = "single-node"
   skip_final_snapshot = true
 }
+
+resource "aws_cloudfront_distribution" "cdn" {
+  origin {
+    domain_name = "http://wdtk-front.s3-website.eu-west-3.amazonaws.com/"
+    origin_id = "http://wdtk-front.s3-website.eu-west-3.amazonaws.com/"
+  }
+
+  enabled             = true
+  is_ipv6_enabled     = true
+  comment             = "wdtk-cdn"
+  default_root_object = "index.html"
+  default_cache_behavior {
+    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    cached_methods   = ["GET", "HEAD"]
+    viewer_protocol_policy = "allow-all"
+    min_ttl                = 0
+    default_ttl            = 3600
+    max_ttl                = 86400
+  }
+}
