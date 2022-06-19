@@ -6,7 +6,7 @@
       :data="wordsCloudList"
       nameKey="word"
       valueKey="frequency"
-      color="Category10"
+      :color="['#1f77b4', '#629fc9', '#94bedb', '#c9e0ef']"
       :showTooltip="true"
     />
   </section>

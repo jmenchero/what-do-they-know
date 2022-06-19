@@ -3,9 +3,9 @@
     <emojis-wall />
     <active-hours />
     <words-cloud />
-    <interactions />
     <emotions />
     <favorite-contacts />
+    <interactions />
     <global-report />
   </full-page>
 </template>

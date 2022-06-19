@@ -24,7 +24,25 @@ export default {
   data () {
     return {
       monthlyEmotionsChartData: undefined,
-      monthlyEmotionsChartOptions: {}
+      monthlyEmotionsChartOptions: {
+        legend: {
+          display: false
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              fontSize: 14,
+              fontColor: 'grey'
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              fontSize: 20,
+              fontColor: 'white'
+            }
+          }]
+        }
+      }
     }
   },
   computed: {

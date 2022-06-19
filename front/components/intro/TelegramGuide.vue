@@ -71,4 +71,9 @@ export default {
   opacity: 1;
   margin-left: 2rem;
 }
+.intro__button {
+  margin: 1rem;
+  font-size: 1vw;
+  float: right;
+}
 </style>

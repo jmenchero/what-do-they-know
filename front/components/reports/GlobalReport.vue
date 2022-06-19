@@ -48,7 +48,7 @@ export default {
 
 <style>
 .section--global {
-  background: linear-gradient(grey,#001122);
+  background: linear-gradient(#001122,grey);
 }
 
 .global-report {

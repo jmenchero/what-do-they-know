@@ -1,6 +1,6 @@
 <template>
   <section class="section section--interactions">
-    <h1>People you talked more with</h1>
+    <h1>How much you talked with them</h1>
     <line-chart
       v-if="monthlyInteractionsChartData"
       class="section--interactions__monthly-progress"
@@ -9,12 +9,6 @@
       width="800px"
       height="400px"
     />
-    <!-- <div class="section--interactions__bedtime">
-      It seems like you usually go to bed around 
-      <strong><b-icon icon="weather-sunset-down" size="is-large" />{{bedTime.bed}}:00h</strong>
-      and wake up at
-      <strong><b-icon icon="weather-sunset-up" size="is-large" />{{bedTime.wake}}:00h</strong>
-    </div> -->
   </section>
 </template>
 
@@ -30,7 +24,28 @@ export default {
   data () {
     return {
       monthlyInteractionsChartData: undefined,
-      monthlyInteractionsChartOptions: {}
+      monthlyInteractionsChartOptions: {
+        legend: {
+          labels: {
+            fontSize: 20,
+            fontColor: 'white'
+          }
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              fontSize: 14,
+              fontColor: 'grey'
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              fontSize: 20,
+              fontColor: 'white'
+            }
+          }]
+        }
+      }
     }
   },
   computed: {
@@ -60,7 +75,7 @@ export default {
               label: user,
               data: Object.values(userProgression),
               fill: false,
-              borderColor: 'rgb(75, 192, 192)',
+              borderColor: `#${Math.floor(Math.random()*16777215).toString(16)}`,
               tension: 0.5
             }
           })
