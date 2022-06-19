@@ -59,7 +59,7 @@ jobs:
     - name: Install dependencies 👨🏻‍💻
       run: cd front && yarn
 
-    - name: 'Create env file'
+    - name: Create env file
       run: |
         cd front
         touch .env
