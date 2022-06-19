@@ -1,5 +1,7 @@
 import _ from 'lodash'
-import RedshiftData from "aws-sdk/clients/redshiftdata"
+import RedshiftData from 'aws-sdk/clients/redshiftdata'
+import sentiment from 'sentiment-multilang'
+
 
 function mapAllMessagesFromAllChats (chats, messageMapFunction) {
   chats.map(chat => chat.messages.map(messageMapFunction))
@@ -11,6 +13,24 @@ function mapUserMessagesFromAllChats (chats, user, messageMapFunction) {
       messageMapFunction(message)
     }
   })
+}
+
+function monthlyEmotions (chats, user) {
+  const monthlyEmotions = {}
+  _.range(12).forEach(month  => monthlyEmotions[month] = 0)
+  mapUserMessagesFromAllChats(chats, user, message => {
+    if (typeof message.text === 'string' && message.text.length > 5) {
+      const messageDate = new Date(message.date)
+      const year = messageDate.getFullYear()
+      const month = messageDate.getMonth()
+      if (year === 2021) {
+        const englishScore = sentiment(message.text, 'en').score
+        const spanishScore = sentiment(message.text, 'es').score
+        monthlyEmotions[month] += englishScore + spanishScore
+      }
+    }
+  })
+  return monthlyEmotions
 }
 
 function getMessageEmojis (message) {
@@ -60,7 +80,7 @@ function wordsCloud (chats, user) {
 }
 
 function activeHours (chats, user) {
-  const allHours = [...Array(24).keys()]
+  const allHours = _.range(24)
   const activeHours = {}
   allHours.forEach((hour) => activeHours[hour] = 0)
   mapUserMessagesFromAllChats(chats, user, message => {
@@ -68,6 +88,44 @@ function activeHours (chats, user) {
     activeHours[hour] = activeHours[hour] + 1
   })
   return activeHours
+}
+
+function topContacts(chats, user) {
+  const users = []
+  chats.map(chat => {
+    if (chat.messages.length > 0) {
+      const firstRecievedMessage = chat.messages.find(message => message.from_id !== user)
+      if (firstRecievedMessage) {
+        const username = firstRecievedMessage.from
+        const userId = firstRecievedMessage.from_id
+        const count = chat.messages.length
+        if (username) users.push({ username, count, userId })
+      }
+    }
+  })
+  const rankedUsers = _.orderBy(users, 'count', 'desc')
+  const topUsers = rankedUsers.slice(0, 10)
+  return topUsers
+}
+
+function monthlyInteractions (chats, topUsers) {
+  const chatInteractions = {}
+  topUsers.map(user => {
+    const userId = parseInt(user.userId.replace('user',''))
+    const userChat = chats.find(chat => chat.id === userId)
+    const monthlyInteractions = {}
+    _.range(12).forEach(month  => monthlyInteractions[month] = 0)
+    userChat.messages.map(message => {
+      const messageDate = new Date(message.date)
+      const year = messageDate.getFullYear()
+      const month = messageDate.getMonth()
+      if (year === 2021) {
+        monthlyInteractions[month] = monthlyInteractions[month] + 1
+      }
+    })
+    chatInteractions[user.username] = monthlyInteractions
+  })
+  return chatInteractions
 }
 
 function differenceWithNextHour (activeHours) {
@@ -117,6 +175,9 @@ export const state = () => ({
   activeHours: undefined,
   anualMessages: undefined,
   averageLength: undefined,
+  favoriteContacts: undefined,
+  monthlyInteractions: undefined,
+  monthlyEmotions: undefined,
   globalAnalysis: undefined
 })
 
@@ -136,6 +197,15 @@ export const mutations = {
   setAverageLength(state, averageLength) {
     state.averageLength = averageLength
   },
+  setFavoriteContacts(state, favoriteContacts) {
+    state.favoriteContacts = favoriteContacts
+  },
+  setMonthlyInteractions(state, monthlyInteractions) {
+    state.monthlyInteractions = monthlyInteractions
+  },
+  setMonthlyEmotions(state, monthlyEmotions) {
+    state.monthlyEmotions = monthlyEmotions
+  },
   setGlobalAnalysis(state, globalAnalysis) {
     state.globalAnalysis = globalAnalysis
   }
@@ -149,10 +219,14 @@ export const actions = {
       const telegramData = JSON.parse(jsonFile)
       const user = `user${telegramData.personal_information.user_id}`
       const chats = telegramData.chats.list
+      const favoriteContacts = topContacts(chats, user)
       commit('setEmojisWall', emojisWall(chats, user))
       commit('setWordsCloud', wordsCloud(chats, user))
       commit('setActiveHours', activeHours(chats, user))
       commit('setAnualMessages', anualMessages(chats, user))
+      commit('setFavoriteContacts', favoriteContacts)
+      commit('setMonthlyInteractions', monthlyInteractions(chats, favoriteContacts))
+      commit('setMonthlyEmotions', monthlyEmotions(chats, user))
       commit('setAverageLength', averageLength(chats, user))
     })
     reader.readAsText(file)

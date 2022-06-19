@@ -17,6 +17,7 @@
     "lodash": "^4.17.21",
     "nuxt": "^2.15.7",
     "nuxt-buefy": "^0.4.8",
+    "sentiment-multilang": "^0.0.2",
     "vue-chartjs": "^3.5.1",
     "vue-wordcloud": "^1.1.1",
     "vuex-persist": "^3.1.3"

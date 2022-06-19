@@ -7189,6 +7189,11 @@ send@0.17.1:
     range-parser "~1.2.1"
     statuses "~1.5.0"
 
+sentiment-multilang@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/sentiment-multilang/-/sentiment-multilang-0.0.2.tgz#39e9f464f58c0bad79cfe61265ef875db429d308"
+  integrity sha512-IbpI5l7kla/11jbI3q5kw3bqQ1NpUnh5KOGmM3D5TaXANg2vGeVU83n7i5geH28OMexORlW5ktGsr0G/hjhA6Q==
+
 serialize-javascript@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-3.1.0.tgz#8bf3a9170712664ef2561b44b691eafe399214ea"
