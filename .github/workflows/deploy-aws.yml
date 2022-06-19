@@ -59,11 +59,16 @@ jobs:
     - name: Install dependencies 👨🏻‍💻
       run: cd front && yarn
 
+    - name: 'Create env file'
+      run: |
+        cd front
+        touch .env
+        echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
+        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+        cat .env
+
     - name: Build static dist 🏭
       run: cd front && yarn generate
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Sync S3
       uses: jakejarvis/s3-sync-action@master
